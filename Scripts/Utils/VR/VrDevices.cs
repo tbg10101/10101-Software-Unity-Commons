@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 namespace Software10101.Utils.VR {
+	/// <summary>
+	/// Gets and maintains a mapping of tracked objects to controllers.
+	/// </summary>
 	public sealed class VrDevices : MonoBehaviour {
 		private static VrDevices instance = null;
 
