@@ -96,6 +96,11 @@
 		/////////////////////////////////////////////////////////////////////////////
 		// TO STRING
 		/////////////////////////////////////////////////////////////////////////////
+		override
+		public string ToString () {
+			return ToStringMetersPerSecond();
+		}
+
 		public string ToStringMetersPerSecond () {
 			return To(Length.METER, Duration.SECOND) + "m/s";
 		}

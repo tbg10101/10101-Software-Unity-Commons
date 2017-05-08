@@ -1,5 +1,7 @@
 ﻿namespace Software10101.Units {
 	public struct Length {
+		private const string UNIT = "m";
+
 		public static readonly Length CENTIMETER =                    0.00001; // km
 		public static readonly Length METER =                         0.001;   // km
 		public static readonly Length KILOMETER =                     1.0;     // km
@@ -97,16 +99,21 @@
 		/////////////////////////////////////////////////////////////////////////////
 		// TO STRING
 		/////////////////////////////////////////////////////////////////////////////
+		override
+		public string ToString () {
+			return SI.ToLargestSiString(kilometers, UNIT, 2, 3, 0);
+		}
+
 		public string ToStringCentimeters () {
-			return To(CENTIMETER) + "cm";
+			return To(CENTIMETER) + "c" + UNIT;
 		}
 
 		public string ToStringMeters () {
-			return To(METER) + "m";
+			return SI.ToLargestSiString(kilometers, UNIT, 2, 3, 0, 0);
 		}
 
 		public string ToStringKilometers () {
-			return kilometers + "km";
+			return SI.ToLargestSiString(kilometers, UNIT, 2, 3, 3, 3);
 		}
 
 		public string ToStringEarthRadii () {

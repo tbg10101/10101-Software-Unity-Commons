@@ -72,6 +72,11 @@
 		/////////////////////////////////////////////////////////////////////////////
 		// TO STRING
 		/////////////////////////////////////////////////////////////////////////////
+		override
+		public string ToString () {
+			return ToStringKilogramMetersPerSecond();
+		}
+
 		public string ToStringKilogramMetersPerSecond () {
 			return To(Mass.KILOGRAM, Speed.METER_PER_SECOND) + "kg m/s";
 		}
