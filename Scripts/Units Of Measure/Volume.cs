@@ -101,6 +101,11 @@
 		/////////////////////////////////////////////////////////////////////////////
 		// TO STRING
 		/////////////////////////////////////////////////////////////////////////////
+		override
+		public string ToString () {
+			return ToStringCubicKilometers();
+		}
+
 		public string ToStringCubicCentimeters () {
 			return To(CUBIC_CENTIMETER) + "cm³";
 		}
@@ -109,7 +114,7 @@
 			return To(CUBIC_METER) + "m³";
 		}
 
-		public string ToStringCubicKilometersMeters () {
+		public string ToStringCubicKilometers () {
 			return kmCubed + "km³";
 		}
 	}

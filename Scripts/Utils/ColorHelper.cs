@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Software10101.Util {
+namespace Software10101.Utils {
 	public static class ColorHelper {
 		public static readonly Color CYAN;
 		public static readonly Color CYAN_DARK;

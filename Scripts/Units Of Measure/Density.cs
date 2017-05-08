@@ -70,6 +70,11 @@
 		/////////////////////////////////////////////////////////////////////////////
 		// TO STRING
 		/////////////////////////////////////////////////////////////////////////////
+		override
+		public string ToString () {
+			return ToStringGramsPerCubicCentimeter();
+		}
+
 		public string ToStringGramsPerCubicCentimeter () {
 			return To(Mass.GRAM, Volume.CUBIC_CENTIMETER) + "g/cm³";
 		}

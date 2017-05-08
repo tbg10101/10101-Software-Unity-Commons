@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Software10101.Util {
+namespace Software10101.Utils {
 	/// <summary>
 	/// Abstract FrameCache type.
 	/// </summary>

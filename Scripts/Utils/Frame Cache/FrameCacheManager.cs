@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Software10101.Util {
+namespace Software10101.Utils {
 	/// <summary>
 	/// Tracks the stale-ness of individual <see cref="FrameCache"> objects.
 	/// 

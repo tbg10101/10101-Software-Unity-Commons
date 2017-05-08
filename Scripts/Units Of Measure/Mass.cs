@@ -1,5 +1,7 @@
 ﻿namespace Software10101.Units {
 	public struct Mass {
+		private const string UNIT = "g";
+
 		public static readonly Mass GRAM =                                       0.001; // kg
 		public static readonly Mass KILOGRAM =                                   1.0; // kg
 		public static readonly Mass EARTH_MASS =         5972200000000000000000000.0; // kg
@@ -95,12 +97,17 @@
 		/////////////////////////////////////////////////////////////////////////////
 		// TO STRING
 		/////////////////////////////////////////////////////////////////////////////
+		override
+		public string ToString () {
+			return SI.ToLargestSiString(kilograms, UNIT, 2, 3, 0);
+		}
+
 		public string ToStringGrams () {
-			return To(GRAM) + "g";
+			return SI.ToLargestSiString(kilograms, UNIT, 2, 3, 0, 0);
 		}
 
 		public string ToStringKilograms () {
-			return kilograms + "kg";
+			return SI.ToLargestSiString(kilograms, UNIT, 2, 3, 3, 3);
 		}
 
 		public string ToStringEarthMasses () {
