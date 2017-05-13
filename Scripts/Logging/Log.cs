@@ -51,21 +51,21 @@ namespace Software10101.Logging {
 		public enum Level { ALL, TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF }
 
 		// used to write the log lines to disk
-		private static StreamWriter Writer = null;
+		private static StreamWriter _writer;
 
 		// used in place of a null array of parameters
-		private readonly static object[] NullArrayReplacement = new object[] { "null" };
+		private static readonly object[] NullArrayReplacement = { "null" };
 
 		/// <summary>
 		/// Opens a stream writer to the configured log file.
 		/// </summary>
 		public static void Start () {
-			if (Writer != null) {
-				Writer.Flush();
-				Writer.Close();
+			if (_writer != null) {
+				_writer.Flush();
+				_writer.Close();
 			}
 
-			Writer = new StreamWriter(FilePath, true);
+			_writer = new StreamWriter(FilePath, true);
 
 			UnityEngine.Debug.Log("Logging started: " + FilePath);
 		}
@@ -74,17 +74,17 @@ namespace Software10101.Logging {
 		/// Closes the stream writer to the configured log file.
 		/// </summary>
 		public static void Stop () {
-			Writer.Flush();
-			Writer.Close();
+			_writer.Flush();
+			_writer.Close();
 
-			Writer = null;
+			_writer = null;
 		}
 
 		// internal method for processing messages and parameters, then writing the result to disk
 		private static string LogInternal (Level level, string message, params object[] parameters) {
-			string processedMessage = string.Format(message, parameters != null ? parameters : NullArrayReplacement);
+			string processedMessage = string.Format(message, parameters ?? NullArrayReplacement);
 
-			if (Writer == null) {
+			if (_writer == null) {
 				return processedMessage;
 			}
 
@@ -108,18 +108,18 @@ namespace Software10101.Logging {
 				System.Diagnostics.StackFrame stackFrame = new System.Diagnostics.StackFrame(2, true);
 				MethodBase method = stackFrame.GetMethod();
 
-				Writer.WriteLine(string.Format("{0} {1}.{2}():{3} {4} {5}",
-					dateTime.ToString("yyyy-dd-MM HH:mm:ss.fff"),
+				_writer.WriteLine("{0:yyyy-dd-MM HH:mm:ss.fff} {1}.{2}():{3} {4} {5}",
+					dateTime,
 					method.DeclaringType,
 					method.Name,
 					stackFrame.GetFileLineNumber(),
 					level,
-					processedMessage));
+					processedMessage);
 			} else {
-				Writer.WriteLine(string.Format("{0} {1} {2}",
-					dateTime.ToString("yyyy-dd-MM HH:mm:ss.fff"),
+				_writer.WriteLine("{0:yyyy-dd-MM HH:mm:ss.fff} {1} {2}",
+					dateTime,
 					level,
-					processedMessage));
+					processedMessage);
 			}
 
 			return processedMessage;

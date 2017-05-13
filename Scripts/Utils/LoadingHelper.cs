@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Software10101.Utils {
+	[ExecuteInEditMode]
 	public sealed class LoadingHelper : MonoBehaviour {
 		public List<Material> MaterialInputs;
-		public List<Texture> TextureInputs;
+		public List<Texture2D> TextureInputs;
 		public List<GameObject> PrefabInputs;
 
 		public static Dictionary<string, Material> Materials = new Dictionary<string, Material>();
@@ -12,6 +14,15 @@ namespace Software10101.Utils {
 		public static Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 		public static Dictionary<string, GameObject> Prefabs = new Dictionary<string, GameObject>();
 
+#if UNITY_EDITOR
+		private void Update () {
+			LinkedHashSet<Material> materialSet = new LinkedHashSet<Material>(MaterialInputs);
+			if (materialSet.Count != MaterialInputs.Count) {
+				Debug.LogError("An item with the same name already exists in this list.");
+			}
+			MaterialInputs = materialSet.ToList();
+		}
+#else
 		private void Awake () {
 			Materials.Clear();
 			Colors.Clear();
@@ -37,5 +48,6 @@ namespace Software10101.Utils {
 				Prefabs[go.name] = go;
 			}
 		}
+#endif
 	}
 }

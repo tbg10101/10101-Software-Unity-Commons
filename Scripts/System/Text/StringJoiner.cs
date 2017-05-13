@@ -5,14 +5,14 @@
 	/// Prior to adding something to the <see cref="StringJoiner"/>, its sj.ToString () method will, by default, return prefix + suffix.However, if the SetEmptyValue() method is called, the emptyValue supplied will be returned instead. This can be used, for example, when creating a string using set notation to indicate an empty set, i.e. "{}", where the prefix is "{", the suffix is "}" and nothing has been added to the <see cref="StringJoiner"/>.
 	/// </summary>
 	public sealed class StringJoiner {
-		private readonly string Delimiter;
+		private readonly string _delimiter;
 
-		private readonly string Prefix;
-		private readonly string Suffix;
+		private readonly string _prefix;
+		private readonly string _suffix;
 
-		private readonly StringBuilder Value = new StringBuilder();
+		private readonly StringBuilder _value = new StringBuilder();
 
-		private string EmptyValue = "";
+		private string _emptyValue = "";
 
 		/// <summary>
 		/// Constructs a <see cref="StringJoiner"/> with no characters in it, with no prefix or suffix, and a copy of the supplied delimiter. If no characters are added to the <see cref="StringJoiner"/> and methods accessing the value of it are invoked, it will not return a prefix or suffix (or properties thereof) in the result, unless SetEmptyValue() has first been called.
@@ -20,11 +20,11 @@
 		/// <param name="delimiter">The <see cref="string"/> to be used between each element added to the <see cref="StringJoiner"/> value.</param>
 		public StringJoiner (string delimiter) {
 			if (delimiter == null) {
-				throw new ArgumentNullException("Delimiter must not be null.");
+				throw new ArgumentNullException("delimiter", "Delimiter must not be null.");
 			}
 
-			Delimiter = delimiter;
-			Prefix = Suffix = "";
+			_delimiter = delimiter;
+			_prefix = _suffix = "";
 		}
 
 		/// <summary>
@@ -35,22 +35,22 @@
 		/// <param name="suffix">The <see cref="string"/> to be used at the end.</param>
 		public StringJoiner (string delimiter, string prefix, string suffix) {
 			if (delimiter == null) {
-				throw new ArgumentNullException("Delimiter must not be null.");
+				throw new ArgumentNullException("delimiter", "Delimiter must not be null.");
 			}
 
 			if (prefix == null) {
-				throw new ArgumentNullException("Prefix must not be null.");
+				throw new ArgumentNullException("prefix", "Prefix must not be null.");
 			}
 
 			if (suffix == null) {
-				throw new ArgumentNullException("Suffix must not be null.");
+				throw new ArgumentNullException("suffix", "Suffix must not be null.");
 			}
 
-			Delimiter = delimiter;
-			Prefix = prefix;
-			Suffix = suffix;
+			_delimiter = delimiter;
+			_prefix = prefix;
+			_suffix = suffix;
 
-			EmptyValue = prefix + suffix;
+			_emptyValue = prefix + suffix;
 		}
 
 		/// <summary>
@@ -58,12 +58,8 @@
 		/// </summary>
 		/// <param name="emptyValue"></param>
 		/// <returns>This <see cref="StringJoiner"/> itself so the calls may be chained.</returns>
-		public StringJoiner SetEmptyValue(string emptyValue) {
-			if (emptyValue == null) {
-				EmptyValue = "null";
-			} else {
-				EmptyValue = emptyValue;
-			}
+		public StringJoiner SetEmptyValue (string emptyValue) {
+			_emptyValue = emptyValue ?? "null";
 
 			return this;
 		}
@@ -72,18 +68,19 @@
 		/// Returns the current value, consisting of the prefix, the values added so far separated by the delimiter, and the suffix, unless no elements have been added in which case, the prefix + suffix or the emptyValue characters are returned.
 		/// </summary>
 		/// <returns>The string representation of this <see cref="StringJoiner"/>.</returns>
-		override public string ToString() {
-			if (Value.Length == 0) {
-				return EmptyValue;
+		override
+		public string ToString () {
+			if (_value.Length == 0) {
+				return _emptyValue;
 			}
 
-			string ret = Value.ToString();
+			string ret = _value.ToString();
 
-			if (Suffix.Length == 0) {
+			if (_suffix.Length == 0) {
 				return ret;
 			}
 
-			return ret + Suffix;
+			return ret + _suffix;
 		}
 
 		/// <summary>
@@ -91,20 +88,20 @@
 		/// </summary>
 		/// <param name="newElement">The element to add.</param>
 		/// <returns>A reference to this StringJoiner.</returns>
-		public StringJoiner Add(string newElement) {
-			if (Value.Length == 0) {
-				if (Prefix.Length == 0) {
-					Value.Append(newElement);
+		public StringJoiner Add (string newElement) {
+			if (_value.Length == 0) {
+				if (_prefix.Length == 0) {
+					_value.Append(newElement);
 				} else {
-					Value.Append(Prefix);
-					Value.Append(newElement);
+					_value.Append(_prefix);
+					_value.Append(newElement);
 				}
 
 				return this;
 			}
 
-			Value.Append(Delimiter);
-			Value.Append(newElement);
+			_value.Append(_delimiter);
+			_value.Append(newElement);
 
 			return this;
 		}
@@ -113,8 +110,8 @@
 		/// Returns the length of the <see cref="string"/> representation of this <see cref="StringJoiner"/>. Note that if no add methods have been called, then the length of the <see cref="string"/> representation (either prefix + suffix or emptyValue) will be returned. The value should be equivalent to ToString().Length.
 		/// </summary>
 		/// <returns>The length of the current value of <see cref="StringJoiner"/>.</returns>
-		public int Length() {
-			return Value.Length != 0 ? Value.Length + Suffix.Length : EmptyValue.Length;
+		public int Length () {
+			return _value.Length != 0 ? _value.Length + _suffix.Length : _emptyValue.Length;
 		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿//TODO: remove when we get .NET 4.0
 
 namespace System.Collections.Generic {
-	public interface ISet<T> : ICollection<T>, IEnumerable<T>, IEnumerable {
+	public interface ISet<T> : ICollection<T> {
 		//
 		// IEnumerable implementation
 		//

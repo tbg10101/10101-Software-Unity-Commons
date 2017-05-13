@@ -1,4 +1,6 @@
-﻿namespace System.Collections.Generic {
+﻿using JetBrains.Annotations;
+
+namespace System.Collections.Generic {
 	/// <summary>
 	/// Ddoes not store duplicate key-value pairs. Adding a new key-value pair equal to an existing key-value pair has no effect.
 	/// </summary>
@@ -9,7 +11,7 @@
 		public void Add (TKey key, TValue value) {
 			ICollection<TValue> collection;
 
-			if (this.TryGetValue(key, out collection)) {
+			if (TryGetValue(key, out collection)) {
 				collection.Add(value);
 			} else {
 				collection = new HashSet<TValue>();
@@ -22,7 +24,7 @@
 		/// Stores a KeyValuePair pair in the MultiDictionary.
 		/// </summary>
 		public void Add (KeyValuePair<TKey, TValue> entry) {
-			this.Add(entry.Key, entry.Value);
+			Add(entry.Key, entry.Value);
 		}
 
 		/// <summary>
@@ -30,7 +32,7 @@
 		/// </summary>
 		public void AddRange (TKey key, IEnumerable<TValue> values) {
 			foreach (TValue value in values) {
-				this.Add(key, value);
+				Add(key, value);
 			}
 		}
 
@@ -39,7 +41,7 @@
 		/// </summary>
 		public void AddRange (IDictionary<TKey, TValue> dict) {
 			foreach (TKey key in dict.Keys) {
-				this.Add(key, dict[key]);
+				Add(key, dict[key]);
 			}
 		}
 
@@ -48,7 +50,7 @@
 		/// </summary>
 		public void AddRange (MultiDictionary<TKey, TValue> dict) {
 			foreach (KeyValuePair<TKey, TValue> entry in dict) {
-				this.Add(entry);
+				Add(entry);
 			}
 		}
 
@@ -85,10 +87,12 @@
 			get {
 				ICollection<TValue> collection;
 
-				if (!this.TryGetValue(key, out collection)) {
-					collection = new HashSet<TValue>();
-					base[key] = collection;
+				if (TryGetValue(key, out collection)) {
+					return collection;
 				}
+
+				collection = new HashSet<TValue>();
+				base[key] = collection;
 
 				return collection;
 			}
@@ -112,6 +116,7 @@
 		/// <summary>
 		/// Hiding the Dictionary.Remove(TKey) method.
 		/// </summary>
+		[UsedImplicitly]
 		private new bool Remove(TKey key) {
 			return false;
 		}
@@ -149,7 +154,7 @@
 		public new IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator () {
 			List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
 
-			foreach (TKey key in base.Keys) {
+			foreach (TKey key in Keys) {
 				foreach (TValue value in base[key]) {
 					list.Add(new KeyValuePair<TKey, TValue>(key, value));
 				}
@@ -158,10 +163,11 @@
 			return list.GetEnumerator();
 		}
 
+		[UsedImplicitly]
 		private void CleanUp() {
 			List<TKey> keysToRemove = new List<TKey>();
 
-			base.Keys.ForEach(key => {
+			Keys.ForEach(key => {
 				if (base[key].Count <= 0) {
 					keysToRemove.Add(key);
 				}
