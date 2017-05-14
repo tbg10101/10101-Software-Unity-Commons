@@ -5,24 +5,24 @@ namespace Software10101.Utils {
 	/// Abstract FrameCache type.
 	/// </summary>
 	public abstract class FrameCache {
-		protected bool _Stale = false;
+		protected bool _stale = false;
 
 		/// <summary>
 		/// Whether or not the contained value has been updated in the latest frame.
 		/// </summary>
 		public bool Stale {
 			get {
-				return _Stale;
+				return _stale;
 			}
 
 			set {
-				if (_Stale && value) {
-					FrameCacheManager.frameCaches.Remove(this);
-				} else if (_Stale && !value) {
-					FrameCacheManager.frameCaches.Add(this);
+				if (_stale && value) {
+					FrameCacheManager.FrameCaches.Remove(this);
+				} else if (_stale && !value) {
+					FrameCacheManager.FrameCaches.Add(this);
 				}
 
-				_Stale = value;
+				_stale = value;
 			}
 		}
 	}
@@ -34,33 +34,35 @@ namespace Software10101.Utils {
 	/// </summary>
 	/// <typeparam name="T">The type of the contained generated object.</typeparam>
 	public sealed class FrameCache<T> : FrameCache {
-		private readonly Func<T> GeneratorFunction;
+		private readonly Func<T> _generatorFunction;
 
-		private T _Value;
+		private T _value;
 
 		/// <summary>
 		/// Gets the contained value. (or generates the value if stale)
 		/// </summary>
 		public T Value {
 			get {
-				if (Stale) {
-					Stale = false;
-
-					_Value = GeneratorFunction();
+				if (!Stale) {
+					return _value;
 				}
 
-				return _Value;
+				Stale = false;
+
+				_value = _generatorFunction();
+
+				return _value;
 			}
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="FrameCache{T}"> instance.
+		/// Creates a new <see cref="FrameCache{T}"/> instance.
 		/// </summary>
 		/// <param name="generatorFunction">The function used to generate the value.</param>
 		public FrameCache (Func<T> generatorFunction) {
-			GeneratorFunction = generatorFunction;
+			_generatorFunction = generatorFunction;
 
-			FrameCacheManager.frameCaches.Add(this);
+			FrameCacheManager.FrameCaches.Add(this);
 		}
 
 		public override bool Equals (object o) {
@@ -74,13 +76,13 @@ namespace Software10101.Utils {
 				return false;
 			}
 
-			return _Stale.Equals(other._Stale)
-				&& GeneratorFunction.Equals(other.GeneratorFunction)
-				&& _Value.Equals(other._Value);
+			return _stale.Equals(other._stale)
+				&& _generatorFunction.Equals(other._generatorFunction)
+				&& _value.Equals(other._value);
 		}
 
 		public override int GetHashCode () {
-			return 17 * GeneratorFunction.GetHashCode();
+			return 17 * _generatorFunction.GetHashCode();
 		}
 	}
 }

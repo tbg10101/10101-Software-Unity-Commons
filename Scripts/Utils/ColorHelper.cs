@@ -64,7 +64,7 @@ namespace Software10101.Utils {
 			DARKENED_COLORS.Add(GRAY, GRAY_DARK);
 		}
 
-		public static Vector4 convertToHSV (Color c) {
+		public static Vector4 ConvertToHsv (Color c) {
 			float cMax = Mathf.Max(c.r, c.g, c.b);
 			float cMin = Mathf.Min(c.r, c.g, c.b);
 			float cDel = cMax - cMin;
@@ -97,7 +97,7 @@ namespace Software10101.Utils {
 			return new Vector4(hue, sat, val, c.a);
 		}
 
-		public static Color convertToRGB (Vector4 c) {
+		public static Color ConvertToRgb (Vector4 c) {
 			float red = 0;
 			float grn = 0;
 			float blu = 0;
@@ -145,19 +145,19 @@ namespace Software10101.Utils {
 			return new Color(red, grn, blu, c.w);
 		}
 
-		public static Color multiplyAlpha (Color inColor, float multAlpha) {
+		public static Color MultiplyAlpha (Color inColor, float multAlpha) {
 			return new Color(inColor.r, inColor.g, inColor.b, inColor.a * multAlpha);
 		}
 
-		public static Color getColorPhysical (float tInput) {
-			return getColorPhysical((double)tInput);
+		public static Color GetColorPhysical (float tInput) {
+			return GetColorPhysical((double)tInput);
 		}
 
 		/*
 		 * http://en.wikipedia.org/wiki/Color_temperature
 		 * The returned color's alpha is the temperature as a fraction of the maximum temperature given. 
 		 */
-		public static Color getColorPhysical (double tInput) {
+		public static Color GetColorPhysical (double tInput) {
 			Color o = Color.white;
 
 			double t = Mathf.Clamp((float)tInput, 1000.0f, 40000.0f);
