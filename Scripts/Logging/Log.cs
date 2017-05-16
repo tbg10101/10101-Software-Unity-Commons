@@ -61,11 +61,10 @@ namespace Software10101.Logging {
 		/// </summary>
 		public static void Start () {
 			if (_writer != null) {
-				_writer.Flush();
-				_writer.Close();
+				Stop();
 			}
 
-			_writer = new StreamWriter(FilePath, true);
+			_writer = new StreamWriter(FilePath, true, Encoding.Unicode);
 
 			UnityEngine.Debug.Log("Logging started: " + FilePath);
 		}
@@ -122,6 +121,10 @@ namespace Software10101.Logging {
 					processedMessage);
 			}
 
+#if UNITY_EDITOR
+			_writer.Flush();
+#endif
+
 			return processedMessage;
 		}
 
@@ -131,7 +134,7 @@ namespace Software10101.Logging {
 		/// <param name="message">The message to log.</param>
 		/// <param name="parameters">Parameters to use when formatting the message.</param>
 		public static void Trace (string message, params object[] parameters) {
-			Level thisLevel = Level.TRACE;
+			const Level thisLevel = Level.TRACE;
 
 			if (LogLevel <= thisLevel) {
 				UnityEngine.Debug.Log(LogInternal(thisLevel, message, parameters));
@@ -144,7 +147,7 @@ namespace Software10101.Logging {
 		/// <param name="message">The message to log.</param>
 		/// <param name="parameters">Parameters to use when formatting the message.</param>
 		public static void Debug (string message, params object[] parameters) {
-			Level thisLevel = Level.DEBUG;
+			const Level thisLevel = Level.DEBUG;
 
 			if (LogLevel <= thisLevel) {
 				UnityEngine.Debug.Log(LogInternal(thisLevel, message, parameters));
@@ -157,7 +160,7 @@ namespace Software10101.Logging {
 		/// <param name="message">The message to log.</param>
 		/// <param name="parameters">Parameters to use when formatting the message.</param>
 		public static void Info (string message, params object[] parameters) {
-			Level thisLevel = Level.INFO;
+			const Level thisLevel = Level.INFO;
 
 			if (LogLevel <= thisLevel) {
 				UnityEngine.Debug.Log(LogInternal(thisLevel, message, parameters));
@@ -170,7 +173,7 @@ namespace Software10101.Logging {
 		/// <param name="message">The message to log.</param>
 		/// <param name="parameters">Parameters to use when formatting the message.</param>
 		public static void Warn (string message, params object[] parameters) {
-			Level thisLevel = Level.WARN;
+			const Level thisLevel = Level.WARN;
 
 			if (LogLevel <= thisLevel) {
 				UnityEngine.Debug.LogWarning(LogInternal(thisLevel, message, parameters));
@@ -183,7 +186,7 @@ namespace Software10101.Logging {
 		/// <param name="message">The message to log.</param>
 		/// <param name="parameters">Parameters to use when formatting the message.</param>
 		public static void Error (string message, params object[] parameters) {
-			Level thisLevel = Level.ERROR;
+			const Level thisLevel = Level.ERROR;
 
 			if (LogLevel <= thisLevel) {
 				UnityEngine.Debug.LogError(LogInternal(thisLevel, message, parameters));
@@ -196,7 +199,7 @@ namespace Software10101.Logging {
 		/// <param name="message">The message to log.</param>
 		/// <param name="parameters">Parameters to use when formatting the message.</param>
 		public static void Fatal (string message, params object[] parameters) {
-			Level thisLevel = Level.FATAL;
+			const Level thisLevel = Level.FATAL;
 
 			if (LogLevel <= thisLevel) {
 				UnityEngine.Debug.LogError(LogInternal(thisLevel, message, parameters));
