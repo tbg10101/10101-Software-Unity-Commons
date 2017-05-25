@@ -2,7 +2,7 @@
 
 namespace System.Collections.Generic {
 	/// <summary>
-	/// Ddoes not store duplicate key-value pairs. Adding a new key-value pair equal to an existing key-value pair has no effect.
+	/// Does not store duplicate key-value pairs. Adding a new key-value pair equal to an existing key-value pair has no effect.
 	/// </summary>
 	public sealed class MultiDictionary<TKey, TValue> : Dictionary<TKey, ICollection<TValue>> {
 		/// <summary>
