@@ -92,11 +92,11 @@ namespace Software10101.Utils.VR {
 		}
 
 		public Vector3 GetRightControllerTipPosition () {
-			return _allDevicesReady ? RightControllerObject.transform.position + ControllerTipOffset : Vector3.zero;
+			return _allDevicesReady ? RightControllerObject.transform.TransformPoint(ControllerTipOffset) : Vector3.zero;
 		}
 
 		public Vector3 GetLeftControllerTipPosition () {
-			return _allDevicesReady ? LeftControllerObject.transform.position + ControllerTipOffset : Vector3.zero;
+			return _allDevicesReady ? LeftControllerObject.transform.TransformPoint(ControllerTipOffset) : Vector3.zero;
 		}
 	}
 }
