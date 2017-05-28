@@ -33,8 +33,10 @@ namespace Software10101.Utils {
 			}
 		} 
 
-		private void Update () {
-			FrameCaches.ForEach(fc => fc.Stale = true);
+		private void LateUpdate () {
+			HashSet<FrameCache> becomingStale = new HashSet<FrameCache>(FrameCaches);
+			
+			becomingStale.ForEach(fc => fc.Stale = true);
 		}
 	}
 }

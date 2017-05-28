@@ -64,6 +64,14 @@
 			return first + second.seconds;
 		}
 
+		public static Duration operator + (Duration first, float second) {
+			return first.seconds + second;
+		}
+
+		public static Duration operator + (float first, Duration second) {
+			return first + second.seconds;
+		}
+
 		public static Duration operator - (Duration first, Duration second) {
 			return first.seconds - second.seconds;
 		}
@@ -76,6 +84,14 @@
 			return first - second.seconds;
 		}
 
+		public static Duration operator - (Duration first, float second) {
+			return first.seconds - second;
+		}
+
+		public static Duration operator - (float first, Duration second) {
+			return first - second.seconds;
+		}
+
 		public static Duration operator * (Duration first, double second) {
 			return first.seconds * second;
 		}
@@ -84,11 +100,23 @@
 			return first * second.seconds;
 		}
 
+		public static Duration operator * (Duration first, float second) {
+			return first.seconds * second;
+		}
+
+		public static Duration operator * (float first, Duration second) {
+			return first * second.seconds;
+		}
+
 		public static double operator / (Duration first, Duration second) {
 			return first.seconds / second.seconds;
 		}
 
 		public static Duration operator / (Duration first, double second) {
+			return first.seconds / second;
+		}
+
+		public static Duration operator / (Duration first, float second) {
 			return first.seconds / second;
 		}
 

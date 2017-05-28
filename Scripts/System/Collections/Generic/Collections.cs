@@ -6,11 +6,20 @@
 		/// <summary>
 		/// Returns a list containing only the specified object.
 		/// </summary>
-		/// <typeparam name="T">The class of the objects in the list.</typeparam>
+		/// <typeparam name="T">The type of the objects in the list.</typeparam>
 		/// <param name="o">The sole object to be stored in the returned list.</param>
 		/// <returns>A list containing only the specified object.</returns>
 		public static List<T> SingletonList<T> (T o) {
 			return new List<T> { o };
+		}
+		
+		/// <summary>
+		/// Returns an empty list.
+		/// </summary>
+		/// <typeparam name="T">The type of the objects in the list.</typeparam>
+		/// <returns>An empty list.</returns>
+		public static List<T> EmptyList<T> () {
+			return new List<T>();
 		}
 
 		/// <summary>
