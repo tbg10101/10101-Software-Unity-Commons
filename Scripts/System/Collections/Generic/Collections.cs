@@ -25,7 +25,7 @@
 		/// <summary>
 		/// Performs each <see cref="Action{T1}"/> delegate in the <see cref="IEnumerable"/>.
 		/// </summary>
-		/// <typeparam name="T">The class of the objects in the <see cref="IEnumerable"/>.</typeparam>
+		/// <typeparam name="T">The type of the objects in the <see cref="IEnumerable"/>.</typeparam>
 		/// <param name="collection">The <see cref="IEnumerable"/> to be iterated over.</param>
 		/// <param name="param">The parameter to provide to each <see cref="Action{T1}"/> delegate.</param>
 		public static void InvokeEach<T> (this IEnumerable<Action<T>> collection, T param) {
@@ -35,9 +35,9 @@
 		}
 
 		/// <summary>
-		/// Performs the specified action on each element of the <see cref="IEnumerable{T}"/>.
+		/// Performs the specified <see cref="Action{T1}"/> on each element of the <see cref="IEnumerable{T}"/>.
 		/// </summary>
-		/// <typeparam name="T">The class of the objects in the <see cref="IEnumerable"/>.</typeparam>
+		/// <typeparam name="T">The type of the objects in the <see cref="IEnumerable"/>.</typeparam>
 		/// <param name="sequence">The <see cref="IEnumerable"/> to be iterated over.</param>
 		/// <param name="action">The <see cref="Action{T1}"/> delegate to perform on each element of the <see cref="IEnumerable"/>.</param>
 		public static void ForEach<T> (this IEnumerable<T> sequence, Action<T> action) {
@@ -47,10 +47,10 @@
 		}
 
 		/// <summary>
-		/// Performs the specified action on each <see cref="KeyValuePair{TKey, TValue}"/> of the <see cref="IEnumerable"/>.
+		/// Performs the specified <see cref="Action{T1, T2}"/> on each <see cref="KeyValuePair{TKey, TValue}"/> of the <see cref="IEnumerable"/>.
 		/// </summary>
-		/// <typeparam name="TKey">The class of the keys in the <see cref="IEnumerable"/>.</typeparam>
-		/// <typeparam name="TValue">The class of the values in the <see cref="IEnumerable"/>.</typeparam>
+		/// <typeparam name="TKey">The type of the keys in the <see cref="IEnumerable"/>.</typeparam>
+		/// <typeparam name="TValue">The type of the values in the <see cref="IEnumerable"/>.</typeparam>
 		/// <param name="sequence">The <see cref="IEnumerable"/> to be iterated over.</param>
 		/// <param name="action">The <see cref="Action{T1, T2}"/> delegate to perform on each element of the <see cref="IEnumerable"/>.</param>
 		public static void ForEach<TKey, TValue> (this IEnumerable<KeyValuePair<TKey, TValue>> sequence, Action<TKey, TValue> action) {
