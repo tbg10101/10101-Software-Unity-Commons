@@ -11,7 +11,7 @@ namespace Software10101.Utils {
 		/// <summary>
 		/// The set of <see cref="FrameCache"/> objects that are being tracked for stale-ness. <see cref="FrameCache{T}"/> objects that are stale for 2 frames in-a-row are removed automatically.
 		/// </summary>
-		public static HashSet<FrameCache> FrameCaches = new HashSet<FrameCache>();
+		public static readonly HashSet<FrameCache> FrameCaches = new HashSet<FrameCache>();
 
 		/// <summary>
 		/// Whether or not the object should persist between scene changes. Only one <see cref="FrameCacheManager"/> will exist at any time, regarless of this selection.
@@ -34,9 +34,7 @@ namespace Software10101.Utils {
 		} 
 
 		private void LateUpdate () {
-			HashSet<FrameCache> becomingStale = new HashSet<FrameCache>(FrameCaches);
-			
-			becomingStale.ForEach(fc => fc.Stale = true);
+			FrameCaches.ForEach(fc => fc.Stale = true);
 		}
 	}
 }

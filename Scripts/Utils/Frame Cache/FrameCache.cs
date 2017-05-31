@@ -5,26 +5,10 @@ namespace Software10101.Utils {
 	/// Abstract FrameCache type.
 	/// </summary>
 	public abstract class FrameCache {
-		protected bool _stale = true;
-
 		/// <summary>
 		/// Whether or not the contained value has been updated in the latest frame.
 		/// </summary>
-		public bool Stale {
-			get {
-				return _stale;
-			}
-
-			set {
-				if (!_stale && value) {
-					FrameCacheManager.FrameCaches.Remove(this);
-				} else if (_stale && !value) {
-					FrameCacheManager.FrameCaches.Add(this);
-				}
-
-				_stale = value;
-			}
-		}
+		public bool Stale = true;
 	}
 
 	/// <summary>
@@ -77,7 +61,7 @@ namespace Software10101.Utils {
 
 			FrameCacheManager.FrameCaches.Add(this);
 
-			_stale = false;
+			Stale = false;
 
 			_value = initialValue;
 		}
@@ -93,7 +77,7 @@ namespace Software10101.Utils {
 				return false;
 			}
 
-			return _stale.Equals(other._stale)
+			return Stale.Equals(other.Stale)
 				&& _generatorFunction.Equals(other._generatorFunction)
 				&& _value.Equals(other._value);
 		}
