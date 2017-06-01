@@ -18,13 +18,15 @@ namespace Software10101.Utils.Loading {
 
 #if UNITY_EDITOR
 		private void Update () {
-			LinkedHashSet<string> materialNameSet = new LinkedHashSet<string>();
+			if (!Application.isPlaying) {
+				LinkedHashSet<string> materialNameSet = new LinkedHashSet<string>();
 
-			MaterialInputs.ForEach(element => materialNameSet.Add(element.name));
+				MaterialInputs.ForEach(element => materialNameSet.Add(element.name));
 
-			if (materialNameSet.Count != MaterialInputs.Count) {
-				Debug.LogError("An item with the same name already exists in this list.");
-				UnityEditor.Undo.PerformUndo();
+				if (materialNameSet.Count != MaterialInputs.Count) {
+					Debug.LogError("An item with the same name already exists in this list.");
+					UnityEditor.Undo.PerformUndo();
+				}
 			}
 		}
 //#else
