@@ -33,7 +33,7 @@ namespace Software10101.Logging {
 		/// <summary>
 		/// Messages logged at or above this level will be saved to disk.
 		/// </summary>
-		public static Level LogLevel = Level.DEBUG;
+		public static Level LogLevel = Level.INFO;
 
 		/// <summary>
 		/// The file to which messages will be written.
