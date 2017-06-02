@@ -35,7 +35,7 @@ namespace Software10101.Utils {
 		public static readonly Color GRAY_DARK;
 
 		public static readonly Color STANDARD_DARKENING = new Color32(236 - 189, 240 - 195, 241 - 199, 255);
-		public static readonly Color STANDARD_TRANSPARENCY = new Color(0.0f, 0.0f, 0.0f, 0.75f);
+		public static readonly Color STANDARD_TRANSPARENCY = new Color(0.0f, 0.0f, 0.0f, 0.875f);
 
 		public static readonly Dictionary<Color, Color> DARKENED_COLORS = new Dictionary<Color, Color>();
 		public static readonly Dictionary<Color, Color> TRANSPARENT_COLORS = new Dictionary<Color, Color>();
@@ -44,34 +44,34 @@ namespace Software10101.Utils {
 			// colors from http://flatuicolors.com/
 
 			ColorUtility.TryParseHtmlString("#1abc9c", out CYAN);
-			ColorUtility.TryParseHtmlString("#1abc9c3f", out CYAN_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#1abc9c1f", out CYAN_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#16a085", out CYAN_DARK);
 			ColorUtility.TryParseHtmlString("#2ecc71", out GREEN);
-			ColorUtility.TryParseHtmlString("#2ecc713f", out GREEN_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#2ecc711f", out GREEN_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#27ae60", out GREEN_DARK);
 			ColorUtility.TryParseHtmlString("#3498db", out BLUE);
-			ColorUtility.TryParseHtmlString("#3498db3f", out BLUE_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#3498db1f", out BLUE_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#2980b9", out BLUE_DARK);
 			ColorUtility.TryParseHtmlString("#9b59b6", out PURPLE);
-			ColorUtility.TryParseHtmlString("#9b59b63f", out PURPLE_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#9b59b61f", out PURPLE_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#8e44ad", out PURPLE_DARK);
 			ColorUtility.TryParseHtmlString("#f1c40f", out YELLOW);
-			ColorUtility.TryParseHtmlString("#f1c40f3f", out YELLOW_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#f1c40f1f", out YELLOW_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#f39c12", out YELLOW_DARK);
 			ColorUtility.TryParseHtmlString("#e67e22", out ORANGE);
-			ColorUtility.TryParseHtmlString("#e67e223f", out ORANGE_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#e67e221f", out ORANGE_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#d35400", out ORANGE_DARK);
 			ColorUtility.TryParseHtmlString("#e74c3c", out RED);
-			ColorUtility.TryParseHtmlString("#e74c3c3f", out RED_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#e74c3c1f", out RED_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#c0392b", out RED_DARK);
 			ColorUtility.TryParseHtmlString("#ecf0f1", out WHITE);
-			ColorUtility.TryParseHtmlString("#ecf0f13f", out WHITE_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#ecf0f11f", out WHITE_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#bdc3c7", out WHITE_DARK);
 			ColorUtility.TryParseHtmlString("#34495e", out BLACK);
-			ColorUtility.TryParseHtmlString("#34495e3f", out BLACK_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#34495e1f", out BLACK_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#2c3e50", out BLACK_DARK);
 			ColorUtility.TryParseHtmlString("#95a5a6", out GRAY);
-			ColorUtility.TryParseHtmlString("#95a5a63f", out GRAY_TRANSPARENT);
+			ColorUtility.TryParseHtmlString("#95a5a61f", out GRAY_TRANSPARENT);
 			ColorUtility.TryParseHtmlString("#7f8c8d", out GRAY_DARK);
 
 			DARKENED_COLORS.Add(CYAN, CYAN_DARK);
