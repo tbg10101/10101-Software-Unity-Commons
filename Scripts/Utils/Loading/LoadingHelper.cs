@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Software10101.Logging;
 using UnityEngine;
 
 namespace Software10101.Utils.Loading {
@@ -29,7 +30,8 @@ namespace Software10101.Utils.Loading {
 				}
 			}
 		}
-//#else
+#endif
+		
 		private void Awake () {
 			Materials.Clear();
 			Colors.Clear();
@@ -37,32 +39,43 @@ namespace Software10101.Utils.Loading {
 			Prefabs.Clear();
 
 			foreach (Material m in MaterialInputs) {
+				Log.Info("Loading Material '" + m.name + "'...");
+				
 				Materials[m.name] = m;
 
-				Colors[m.name] = m.color;
+				if (m.HasProperty("_Color")) {
+					Colors[m.name] = m.color;
 
-				Texture2D t = new Texture2D(1, 1);
-				t.SetPixel(0, 0, m.color);
-				t.Apply();
-				Textures[m.name] = t;
+					Texture2D t = new Texture2D(1, 1);
+					t.SetPixel(0, 0, m.color);
+					t.Apply();
+					Textures[m.name] = t;
+				}
 			}
 
 			foreach (ColorObject c in ColorsInputs) {
+				Log.Info("Loading Color '" + c.name + "'...");
+				
 				Colors[c.name] = c.Color;
 			}
 
 			foreach (Texture2D t in TextureInputs) {
+				Log.Info("Loading Texture '" + t.name + "'...");
+				
 				Textures[t.name] = t;
 			}
 
 			foreach (Sprite s in SpriteInputs) {
+				Log.Info("Loading Sprite '" + s.name + "'...");
+				
 				Sprites[s.name] = s;
 			}
 
 			foreach (GameObject go in PrefabInputs) {
+				Log.Info("Loading Prefab '" + go.name + "'...");
+				
 				Prefabs[go.name] = go;
 			}
 		}
-#endif
 	}
 }
