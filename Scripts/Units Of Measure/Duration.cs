@@ -1,17 +1,21 @@
 ﻿namespace Software10101.Units {
 	public struct Duration {
-		public static readonly Duration NANOSECOND =    0.000000001; // s
-		public static readonly Duration MICROSECOND =   0.000001; // s
-		public static readonly Duration MILLISECOND =   0.001; // s
-		public static readonly Duration SECOND =        1.0; // s
-		public static readonly Duration MINUTE =       60.0; // s
-		public static readonly Duration HOUR =         60.0 * MINUTE; // s
-		public static readonly Duration DAY =          24.0 * HOUR; // s
-		public static readonly Duration WEEK =          7.0 * DAY; // s
-		public static readonly Duration YEAR =        365.24 * DAY; // s
-		public static readonly Duration DECADE =       10.0 * YEAR; // s
-		public static readonly Duration CENTURY =      10.0 * DECADE; // s
+		private const string UNIT = "s";
+		
+		public static readonly Duration ZERO_TIME =     0.0;           // s
+		public static readonly Duration NANOSECOND =    0.000000001;   // s
+		public static readonly Duration MICROSECOND =   0.000001;      // s
+		public static readonly Duration MILLISECOND =   0.001;         // s
+		public static readonly Duration SECOND =        1.0;           // s
+		public static readonly Duration MINUTE =       60.0;           // s
+		public static readonly Duration HOUR =         60.0 * MINUTE;  // s
+		public static readonly Duration DAY =          24.0 * HOUR;    // s
+		public static readonly Duration WEEK =          7.0 * DAY;     // s
+		public static readonly Duration YEAR =        365.24 * DAY;    // s
+		public static readonly Duration DECADE =       10.0 * YEAR;    // s
+		public static readonly Duration CENTURY =      10.0 * DECADE;  // s
 		public static readonly Duration MILLENIUM =    10.0 * CENTURY; // s
+		public static readonly Duration MAX_TIME = double.MaxValue;
 
 		private readonly double seconds;
 
@@ -125,55 +129,60 @@
 		/////////////////////////////////////////////////////////////////////////////
 		override
 		public string ToString () {
-			return ToStringSeconds();
+			return SI.ToLargestSiString(seconds, UNIT);
 		}
 
 		public string ToStringNanoseconds () {
-			return To(NANOSECOND) + "ns";
+			return SI.ToLargestSiString(seconds, UNIT, 2, 0, -9, -9);
 		}
 
 		public string ToStringMicroseconds () {
-			return To(MICROSECOND) + "μs";
+			return SI.ToLargestSiString(seconds, UNIT, 2, 0, -6, -6);
 		}
 
 		public string ToStringMilliseconds () {
-			return To(MILLISECOND) + "ms";
+			return SI.ToLargestSiString(seconds, UNIT, 2, 0, -3, -3);
 		}
 
 		public string ToStringSeconds () {
-			return seconds + " seconds";
+			return SI.ToLargestSiString(seconds, UNIT, 2, 0, 0, 0);
 		}
 
 		public string ToStringMinutes () {
-			return To(MINUTE) + " minutes";
+			return FormatNonSiTime(MINUTE, "minute");
 		}
 
 		public string ToStringHours () {
-			return To(HOUR) + " hours";
+			return FormatNonSiTime(HOUR, "hour");
 		}
 
 		public string ToStringDays () {
-			return To(DAY) + " days";
+			return FormatNonSiTime(DAY, "day");
 		}
 
 		public string ToStringWeeks () {
-			return To(WEEK) + " weeks";
+			return FormatNonSiTime(WEEK, "week");
 		}
 
 		public string ToStringYears () {
-			return To(YEAR) + " years";
+			return FormatNonSiTime(YEAR, "year");
 		}
 
 		public string ToStringDecades () {
-			return To(DECADE) + " decades";
+			return FormatNonSiTime(DECADE, "decade");
 		}
 
 		public string ToStringCenturies () {
-			return To(CENTURY) + " centuries";
+			return FormatNonSiTime(CENTURY, "centur", "ies", "y");
 		}
 
 		public string ToStringMillenia () {
-			return To(MILLENIUM) + " millenia";
+			return FormatNonSiTime(MILLENIUM, "milleni", "a", "um");
+		}
+
+		private string FormatNonSiTime (Duration unit, string unitString, string pluralSuffix = "s", string singularSuffix = "") {
+			string formattedNumber = string.Format("{0:F2}", To(unit));
+			return formattedNumber + " " + unitString + (formattedNumber.Equals("1.00") ? singularSuffix : pluralSuffix);
 		}
 	}
 }

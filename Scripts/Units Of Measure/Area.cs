@@ -1,6 +1,10 @@
 ﻿namespace Software10101.Units {
 	public struct Area {
-		public static readonly Area SQUARE_KILOMETER = 1.0; // km^2
+		private const string UNIT = "km²";
+		
+		public static readonly Area ZERO_AREA =        0.0; // km²
+		public static readonly Area SQUARE_KILOMETER = 1.0; // km²
+		public static readonly Area MAX_AREA = double.MaxValue;
 
 		private readonly double kmSquared;
 
@@ -88,6 +92,10 @@
 			return area.kmSquared / length.To(Length.KILOMETER);
 		}
 
+		public static Volume operator * (Area first, Length second) {
+			return first.kmSquared * second.To(Length.KILOMETER);
+		}
+
 		/////////////////////////////////////////////////////////////////////////////
 		// TO STRING
 		/////////////////////////////////////////////////////////////////////////////
@@ -97,7 +105,7 @@
 		}
 
 		public string ToStringSquareKilometers () {
-			return kmSquared + "km²";
+			return string.Format("{0:F2}{1}", To(SQUARE_KILOMETER), UNIT);
 		}
 	}
 }

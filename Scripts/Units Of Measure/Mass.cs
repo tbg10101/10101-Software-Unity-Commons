@@ -2,11 +2,13 @@
 	public struct Mass {
 		private const string UNIT = "g";
 
+		public static readonly Mass ZERO_MASS =                                  0.0;   // kg
 		public static readonly Mass GRAM =                                       0.001; // kg
-		public static readonly Mass KILOGRAM =                                   1.0; // kg
-		public static readonly Mass EARTH_MASS =         5972200000000000000000000.0; // kg
-		public static readonly Mass JUPITER_MASS =    1898000000000000000000000000.0; // kg
-		public static readonly Mass SOLAR_MASS =   1988550000000000000000000000000.0; // kg
+		public static readonly Mass KILOGRAM =                                   1.0;   // kg
+		public static readonly Mass EARTH_MASS =         5972200000000000000000000.0;   // kg
+		public static readonly Mass JUPITER_MASS =    1898000000000000000000000000.0;   // kg
+		public static readonly Mass SOLAR_MASS =   1988550000000000000000000000000.0;   // kg
+		public static readonly Mass MAX_MASS = double.MaxValue;
 
 		private readonly double kilograms;
 
@@ -111,11 +113,11 @@
 		}
 
 		public string ToStringEarthMasses () {
-			return To(EARTH_MASS) + "M⊕";
+			return string.Format("{0:F2}{1}", To(EARTH_MASS), "M⊕");
 		}
 
 		public string ToStringSolarMasses () {
-			return To(SOLAR_MASS) + "M☉";
+			return string.Format("{0:F2}{1}", To(SOLAR_MASS), "M☉");
 		}
 	}
 }

@@ -1,8 +1,11 @@
 ﻿namespace Software10101.Units {
 	public struct Speed {
-		public static readonly Speed METER_PER_SECOND = 1; // m/s
-
-		public static readonly Speed C = 299792458.0; // m/s
+		private const string UNIT = "m/s";
+		
+		public static readonly Speed ZERO_SPEED       = 0.0; // m/s
+		public static readonly Speed METER_PER_SECOND = 1.0; // m/s
+		public static readonly Speed C =        299792458.0; // m/s
+		public static readonly Speed MAX_SPEED = double.MaxValue;
 
 		public Length length;
 		public Duration duration;
@@ -102,11 +105,11 @@
 		}
 
 		public string ToStringMetersPerSecond () {
-			return To(Length.METER, Duration.SECOND) + "m/s";
+			return string.Format("{0:F2}{1}", To(Length.METER, Duration.SECOND), UNIT);
 		}
 
 		public string ToStringKilometersPerHour () {
-			return To(Length.KILOMETER, Duration.HOUR) + "km/h";
+			return string.Format("{0:F2}{1}", To(Length.KILOMETER, Duration.HOUR), "km/h");
 		}
 	}
 }

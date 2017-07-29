@@ -1,7 +1,11 @@
 ﻿namespace Software10101.Units {
 	public struct Temperature {
-		public static Temperature FREEZING = 273.15; // K
-		public static Temperature BOILING =  373.15; // K
+		private const string UNIT = "K";
+		
+		public static Temperature ABSOLUTE_ZERO =   0.0;  // K
+		public static Temperature FREEZING =      273.15; // K
+		public static Temperature BOILING =       373.15; // K
+		public static Temperature MAX_TEMPERATURE = double.MaxValue;
 
 		private readonly double kelvin;
 
@@ -99,15 +103,15 @@
 		}
 
 		public string ToStringKelvin () {
-			return ToKelvin() + "K";
+			return string.Format("{0:F2}{1}", ToKelvin(), UNIT);
 		}
 
 		public string ToStringCelsius () {
-			return ToCelsius() + "°C";
+			return string.Format("{0:F2}{1}", ToCelsius(), "°C");
 		}
 
 		public string ToStringFahrenheit () {
-			return ToFahrenheit() + "°F";
+			return string.Format("{0:F2}{1}", ToFahrenheit(), "°F");
 		}
 	}
 }
