@@ -41,7 +41,7 @@ namespace Software10101.Units {
 				siValue /= 1000.0;
 			}
 
-			return string.Format("{0:F2}{1}{2}", siValue, PREFIXES[siOrder], unit);
+			return string.Format("{0:F" + decimalDigits + "}{1}{2}", siValue, PREFIXES[siOrder], unit);
 		}
 	}
 }

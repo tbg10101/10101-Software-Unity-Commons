@@ -2,6 +2,7 @@
 	public struct Length {
 		private const string UNIT = "m";
 
+		public static readonly Length ZERO_LENGTH =                   0.0;     // km
 		public static readonly Length CENTIMETER =                    0.00001; // km
 		public static readonly Length METER =                         0.001;   // km
 		public static readonly Length KILOMETER =                     1.0;     // km
@@ -9,6 +10,7 @@
 		public static readonly Length SOLAR_RADIUS =             695700.0;     // km
 		public static readonly Length ASTRONOMICAL_UNIT =     149597870.7;     // km
 		public static readonly Length LIGHT_YEAR =        9460730472580.8;     // km
+		public static readonly Length MAX_LENGTH = double.MaxValue;
 
 		private readonly double kilometers;
 
@@ -96,6 +98,10 @@
 			return first.kilometers * second.kilometers;
 		}
 
+		public static Volume operator * (Length first, Area second) {
+			return first.kilometers * second.To(Area.SQUARE_KILOMETER);
+		}
+
 		/////////////////////////////////////////////////////////////////////////////
 		// TO STRING
 		/////////////////////////////////////////////////////////////////////////////
@@ -105,7 +111,7 @@
 		}
 
 		public string ToStringCentimeters () {
-			return To(CENTIMETER) + "c" + UNIT;
+			return string.Format("{0:F2}{1}{2}", To(CENTIMETER), "c", UNIT);
 		}
 
 		public string ToStringMeters () {
@@ -117,19 +123,19 @@
 		}
 
 		public string ToStringEarthRadii () {
-			return To(EARTH_RADIUS) + "R⊕";
+			return string.Format("{0:F2}{1}", To(EARTH_RADIUS), "R⊕");
 		}
 
 		public string ToStringSolarRadii () {
-			return To(SOLAR_RADIUS) + "R☉";
+			return string.Format("{0:F2}{1}", To(SOLAR_RADIUS), "R☉");
 		}
 
 		public string ToStringAstronomicalUnits () {
-			return To(ASTRONOMICAL_UNIT) + "au";
+			return string.Format("{0:F2}{1}", To(ASTRONOMICAL_UNIT), "au");
 		}
 
 		public string ToStringLightYears () {
-			return To(LIGHT_YEAR) + "ly";
+			return string.Format("{0:F2}{1}", To(LIGHT_YEAR), "ly");
 		}
 	}
 }

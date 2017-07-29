@@ -1,5 +1,10 @@
 ﻿namespace Software10101.Units {
 	public struct Momentum {
+		private const string UNIT = "kg⋅m/s";
+		
+		public static readonly Momentum ZERO_MOMENTUM = 0.0; // kg⋅m/s
+		public static readonly Momentum MAX_MOMENTUM = double.MaxValue;
+		
 		public readonly Mass mass;
 		public readonly Speed speed;
 
@@ -78,7 +83,7 @@
 		}
 
 		public string ToStringKilogramMetersPerSecond () {
-			return To(Mass.KILOGRAM, Speed.METER_PER_SECOND) + "kg m/s";
+			return string.Format("{0:F2}{1}", To(Mass.KILOGRAM, Speed.METER_PER_SECOND), UNIT);
 		}
 	}
 }

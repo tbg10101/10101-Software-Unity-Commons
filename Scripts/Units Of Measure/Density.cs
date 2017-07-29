@@ -1,6 +1,10 @@
 ﻿namespace Software10101.Units {
 	public struct Density {
-		public static readonly Density WATER = 1.0; // g/cm^3
+		private const string UNIT = "g/cm³";
+		
+		public static readonly Density ZERO_DENSITY = 0.0; // g/cm³
+		public static readonly Density WATER =        1.0; // g/cm³
+		public static readonly Density MAX_DENSITY = double.MaxValue;
 
 		public readonly Mass mass;
 		public readonly Volume volume;
@@ -76,15 +80,15 @@
 		}
 
 		public string ToStringGramsPerCubicCentimeter () {
-			return To(Mass.GRAM, Volume.CUBIC_CENTIMETER) + "g/cm³";
+			return string.Format("{0:F2}{1}", To(Mass.GRAM, Volume.CUBIC_CENTIMETER), UNIT);
 		}
 
 		public string ToStringKilogramsPerCubicKilometer () {
-			return To(Mass.KILOGRAM, Volume.CUBIC_KILOMETER) + "kg/km³";
+			return string.Format("{0:F2}{1}", To(Mass.KILOGRAM, Volume.CUBIC_KILOMETER), "kg/km³");
 		}
 
 		public string ToStringKilogramsPerCubicMeter () {
-			return To(Mass.KILOGRAM, Volume.CUBIC_METER) + "kg/m³";
+			return string.Format("{0:F2}{1}", To(Mass.KILOGRAM, Volume.CUBIC_METER), "kg/m³");
 		}
 	}
 }

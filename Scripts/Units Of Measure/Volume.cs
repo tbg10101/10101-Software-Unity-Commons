@@ -1,8 +1,12 @@
 ﻿namespace Software10101.Units {
 	public struct Volume {
-		public static readonly Volume CUBIC_CENTIMETER = 0.000000000000001; // km^3
-		public static readonly Volume CUBIC_METER =      0.000000001; // km^3
-		public static readonly Volume CUBIC_KILOMETER =  1.0; // km^3
+		private const string UNIT = "km³";
+		
+		public static readonly Volume ZERO_VOLUME =      0.0;               // km³
+		public static readonly Volume CUBIC_CENTIMETER = 0.000000000000001; // km³
+		public static readonly Volume CUBIC_METER =      0.000000001;       // km³
+		public static readonly Volume CUBIC_KILOMETER =  1.0;               // km³
+		public static readonly Volume MAX_VOLUME = double.MaxValue;
 
 		private readonly double kmCubed;
 
@@ -107,15 +111,15 @@
 		}
 
 		public string ToStringCubicCentimeters () {
-			return To(CUBIC_CENTIMETER) + "cm³";
+			return string.Format("{0:F2}{1}", To(CUBIC_CENTIMETER), "cm³");
 		}
 
 		public string ToStringCubicMeters () {
-			return To(CUBIC_METER) + "m³";
+			return string.Format("{0:F2}{1}", To(CUBIC_METER), "m³");
 		}
 
 		public string ToStringCubicKilometers () {
-			return kmCubed + "km³";
+			return string.Format("{0:F2}{1}", kmCubed, UNIT);
 		}
 	}
 }
