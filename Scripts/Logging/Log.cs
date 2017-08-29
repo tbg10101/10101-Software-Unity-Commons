@@ -41,7 +41,7 @@ namespace Software10101.Logging {
 		public static string FilePath = UnityEngine.Application.persistentDataPath + "/log.txt";
 
 		/// <summary>
-		/// Whether or not the method name and line number is logge with messages.
+		/// Whether or not the method name and line number is logged with messages.
 		/// </summary>
 		public static bool ShowMethodDetail = true;
 
