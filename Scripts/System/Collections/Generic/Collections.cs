@@ -12,7 +12,7 @@
 		public static List<T> SingletonList<T> (T o) {
 			return new List<T> { o };
 		}
-		
+
 		/// <summary>
 		/// Returns an empty list.
 		/// </summary>
@@ -57,6 +57,25 @@
 			foreach (KeyValuePair<TKey, TValue> item in sequence) {
 				action.Invoke(item.Key, item.Value);
 			}
+		}
+
+		/// <summary>
+		/// Performs the specified <see cref="Func{T, TResult}"/> on each element of the input <see cref="IEnumerable{T}"/>, mapping each element from
+		/// T to R. The result is an <see cref="IEnumerable{R}"/> in ste same order as the input./>
+		/// </summary>
+		/// <typeparam name="T">The input type of the objects in the input <see cref="IEnumerable"/>.</typeparam>
+		/// <typeparam name="TResult">The output type of the objects in the returned <see cref="IEnumerable"/>.</typeparam>
+		/// <param name="sequence">The <see cref="IEnumerable"/> to be iterated over.</param>
+		/// <param name="action">The <see cref="Func{T, TResult}"/> delegate to perform on each element of the <see cref="IEnumerable"/> which maps
+		/// from T to R.</param>
+		public static IEnumerable<TResult> Map<T, TResult> (this IEnumerable<T> sequence, Func<T, TResult> action) {
+			List<TResult> output = new List<TResult>();
+
+			foreach (T item in sequence) {
+				output.Add(action(item));
+			}
+
+			return output;
 		}
 	}
 }
