@@ -5,7 +5,7 @@ namespace Software10101.Utils.VR {
 	/// Gets and maintains a mapping of tracked objects to controllers.
 	/// </summary>
 	public sealed class VrDevices : MonoBehaviour {
-		public static readonly Vector3 ControllerTipOffset = new Vector3(0.0f, -0.0785f, 0.0405f);
+		private static readonly Vector3 ControllerTipOffset = new Vector3(0.0f, -0.0785f, 0.0405f);
 
 		public static VrDevices Instance = null;
 
@@ -50,7 +50,7 @@ namespace Software10101.Utils.VR {
 				return _rightControllerTipPosition;
 			}
 		}
-		
+
 		private static FrameCache<Vector3> _leftControllerTipPosition = null;
 		public static FrameCache<Vector3> LeftControllerTipPosition {
 			get {
@@ -62,18 +62,13 @@ namespace Software10101.Utils.VR {
 		public SteamVR_TrackedObject LeftControllerObject;
 
 		private void Awake () {
-			if (Instance == null) {
-				DontDestroyOnLoad(gameObject);
-				Instance = this;
-				
-				_rightControllerPosition = new FrameCache<Vector3>(GetRightControllerPosition);
-				_leftControllerPosition = new FrameCache<Vector3>(GetLeftControllerPosition);
-				
-				_rightControllerTipPosition = new FrameCache<Vector3>(GetRightControllerTipPosition);
-				_leftControllerTipPosition = new FrameCache<Vector3>(GetLeftControllerTipPosition);
-			} else {
-				DestroyImmediate(gameObject);
-			}
+			Instance = this;
+
+			_rightControllerPosition = new FrameCache<Vector3>(GetRightControllerPosition);
+			_leftControllerPosition = new FrameCache<Vector3>(GetLeftControllerPosition);
+
+			_rightControllerTipPosition = new FrameCache<Vector3>(GetRightControllerTipPosition);
+			_leftControllerTipPosition = new FrameCache<Vector3>(GetLeftControllerTipPosition);
 		}
 
 		private void Update () {

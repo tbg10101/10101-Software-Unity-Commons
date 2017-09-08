@@ -31,7 +31,7 @@ namespace Software10101.Utils.Loading {
 			}
 		}
 #endif
-		
+
 		private void Awake () {
 			Materials.Clear();
 			Colors.Clear();
@@ -39,8 +39,8 @@ namespace Software10101.Utils.Loading {
 			Prefabs.Clear();
 
 			foreach (Material m in MaterialInputs) {
-				Log.Info("Loading Material '" + m.name + "'...");
-				
+				Log.Trace("Loading Material '" + m.name + "'...");
+
 				Materials[m.name] = m;
 
 				if (m.HasProperty("_Color")) {
@@ -54,26 +54,26 @@ namespace Software10101.Utils.Loading {
 			}
 
 			foreach (ColorObject c in ColorsInputs) {
-				Log.Info("Loading Color '" + c.name + "'...");
-				
+				Log.Trace("Loading Color '" + c.name + "'...");
+
 				Colors[c.name] = c.Color;
 			}
 
 			foreach (Texture2D t in TextureInputs) {
-				Log.Info("Loading Texture '" + t.name + "'...");
-				
+				Log.Trace("Loading Texture '" + t.name + "'...");
+
 				Textures[t.name] = t;
 			}
 
 			foreach (Sprite s in SpriteInputs) {
-				Log.Info("Loading Sprite '" + s.name + "'...");
-				
+				Log.Trace("Loading Sprite '" + s.name + "'...");
+
 				Sprites[s.name] = s;
 			}
 
 			foreach (GameObject go in PrefabInputs) {
-				Log.Info("Loading Prefab '" + go.name + "'...");
-				
+				Log.Trace("Loading Prefab '" + go.name + "'...");
+
 				Prefabs[go.name] = go;
 			}
 		}

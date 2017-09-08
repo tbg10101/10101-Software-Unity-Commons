@@ -23,6 +23,16 @@
 		}
 
 		/// <summary>
+		/// Performs each <see cref="Action"/> delegate in the <see cref="IEnumerable"/>.
+		/// </summary>
+		/// <param name="collection">The <see cref="IEnumerable"/> to be iterated over.</param>
+		public static void InvokeEach (this IEnumerable<Action> collection) {
+			foreach (Action action in collection) {
+				action.Invoke();
+			}
+		}
+
+		/// <summary>
 		/// Performs each <see cref="Action{T1}"/> delegate in the <see cref="IEnumerable"/>.
 		/// </summary>
 		/// <typeparam name="T">The type of the objects in the <see cref="IEnumerable"/>.</typeparam>

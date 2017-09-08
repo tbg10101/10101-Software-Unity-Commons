@@ -4,18 +4,17 @@ namespace System.Collections.Generic {
 	/// <summary>
 	/// Does not store duplicate key-value pairs. Adding a new key-value pair equal to an existing key-value pair has no effect.
 	/// </summary>
-	public sealed class MultiDictionary<TKey, TValue> : Dictionary<TKey, ICollection<TValue>> {
+	public sealed class MultiDictionary<TKey, TValue> : Dictionary<TKey, HashSet<TValue>> {
 		/// <summary>
 		/// Stores a key-value pair in the MultiDictionary.
 		/// </summary>
 		public void Add (TKey key, TValue value) {
-			ICollection<TValue> collection;
+			HashSet<TValue> collection;
 
 			if (TryGetValue(key, out collection)) {
 				collection.Add(value);
 			} else {
-				collection = new HashSet<TValue>();
-				collection.Add(value);
+				collection = new HashSet<TValue> {value};
 				base[key] = collection;
 			}
 		}
@@ -57,8 +56,8 @@ namespace System.Collections.Generic {
 		/// <summary>
 		/// Returns a view of this MultiDictionary as an IDictionary from each distinct key to the collection of that key's associated values.
 		/// </summary>
-		public IDictionary<TKey, ICollection<TValue>> AsDictionary () {
-			return new Dictionary<TKey, ICollection<TValue>>(this);
+		public IDictionary<TKey, HashSet<TValue>> AsDictionary () {
+			return new Dictionary<TKey, HashSet<TValue>>(this);
 		}
 
 		/// <summary>
@@ -83,9 +82,9 @@ namespace System.Collections.Generic {
 		/// Note that when ContainsKey(key) is false, this returns an empty collection, not null.
 		/// Changes to the returned collection will update the underlying MultiDictionary, and vice versa.
 		/// </summary>
-		public new ICollection<TValue> this[TKey key] {
+		public new HashSet<TValue> this[TKey key] {
 			get {
-				ICollection<TValue> collection;
+				HashSet<TValue> collection;
 
 				if (TryGetValue(key, out collection)) {
 					return collection;
