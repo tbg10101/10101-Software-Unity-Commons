@@ -44,6 +44,20 @@ namespace Software10101.Utils.VR {
 			}
 		}
 
+		private static FrameCache<Transform> _rightControllerTransform = null;
+		public static FrameCache<Transform> RightControllerTransform {
+			get {
+				return _rightControllerTransform;
+			}
+		}
+
+		private static FrameCache<Transform> _leftControllerTransform = null;
+		public static FrameCache<Transform> LeftControllerTransform {
+			get {
+				return _leftControllerTransform;
+			}
+		}
+
 		private static FrameCache<Vector3> _rightControllerTipPosition = null;
 		public static FrameCache<Vector3> RightControllerTipPosition {
 			get {
@@ -67,6 +81,9 @@ namespace Software10101.Utils.VR {
 			_rightControllerPosition = new FrameCache<Vector3>(GetRightControllerPosition);
 			_leftControllerPosition = new FrameCache<Vector3>(GetLeftControllerPosition);
 
+			_rightControllerTransform = new FrameCache<Transform>(GetRightControllerTransform);
+			_leftControllerTransform = new FrameCache<Transform>(GetLeftControllerTransform);
+
 			_rightControllerTipPosition = new FrameCache<Vector3>(GetRightControllerTipPosition);
 			_leftControllerTipPosition = new FrameCache<Vector3>(GetLeftControllerTipPosition);
 		}
@@ -84,6 +101,14 @@ namespace Software10101.Utils.VR {
 
 		public Vector3 GetLeftControllerPosition () {
 			return _allDevicesReady ? LeftControllerObject.transform.position : Vector3.zero;
+		}
+
+		public Transform GetRightControllerTransform () {
+			return RightControllerObject.transform;
+		}
+
+		public Transform GetLeftControllerTransform () {
+			return LeftControllerObject.transform;
 		}
 
 		public Vector3 GetRightControllerTipPosition () {
