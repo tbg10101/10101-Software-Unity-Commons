@@ -136,14 +136,6 @@ namespace Software10101.Logging {
 		}
 
 		/// <summary>
-		/// Log at the TRACE level without parameters.
-		/// </summary>
-		/// <param name="message">The message to log.</param>
-		public static void Trace (string message) {
-			Trace(message, null);
-		}
-
-		/// <summary>
 		/// Log at the TRACE level.
 		/// </summary>
 		/// <param name="message">The message to log.</param>
@@ -159,14 +151,6 @@ namespace Software10101.Logging {
 					UnityEngine.Debug.Log(s);
 				}
 			}
-		}
-
-		/// <summary>
-		/// Log at the DEBUG level without parameters.
-		/// </summary>
-		/// <param name="message">The message to log.</param>
-		public static void Debug (string message) {
-			Debug(message, null);
 		}
 
 		/// <summary>
@@ -188,14 +172,6 @@ namespace Software10101.Logging {
 		}
 
 		/// <summary>
-		/// Log at the INFO level without parameters.
-		/// </summary>
-		/// <param name="message">The message to log.</param>
-		public static void Info (string message) {
-			Info(message, null);
-		}
-
-		/// <summary>
 		/// Log at the INFO level.
 		/// </summary>
 		/// <param name="message">The message to log.</param>
@@ -211,14 +187,6 @@ namespace Software10101.Logging {
 					UnityEngine.Debug.Log(s);
 				}
 			}
-		}
-
-		/// <summary>
-		/// Log at the WARN level without parameters.
-		/// </summary>
-		/// <param name="message">The message to log.</param>
-		public static void Warn (string message) {
-			Warn(message, null);
 		}
 
 		/// <summary>
@@ -240,14 +208,6 @@ namespace Software10101.Logging {
 		}
 
 		/// <summary>
-		/// Log at the ERROR level without parameters.
-		/// </summary>
-		/// <param name="message">The message to log.</param>
-		public static void Error (string message) {
-			Error(message, null);
-		}
-
-		/// <summary>
 		/// Log at the ERROR level.
 		/// </summary>
 		/// <param name="message">The message to log.</param>
@@ -263,14 +223,6 @@ namespace Software10101.Logging {
 					UnityEngine.Debug.LogError(s);
 				}
 			}
-		}
-
-		/// <summary>
-		/// Log at the FATAL level without parameters.
-		/// </summary>
-		/// <param name="message">The message to log.</param>
-		public static void Fatal (string message) {
-			Fatal(message, null);
 		}
 
 		/// <summary>
