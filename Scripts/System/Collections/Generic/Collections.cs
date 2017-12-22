@@ -87,5 +87,29 @@
 
 			return output;
 		}
+
+		public static T[] ToArray<T> (params T[] array) {
+			return array;
+		}
+
+		public static bool Equals (IEnumerable a, IEnumerable b) {
+			IEnumerator aEnumerator = a.GetEnumerator();
+			IEnumerator bEnumerator = b.GetEnumerator();
+
+			while (true) {
+				bool aHasNext = aEnumerator.MoveNext();
+				bool bHasNext = bEnumerator.MoveNext();
+
+				if (aHasNext && bHasNext) {
+					if (!Equals(aEnumerator.Current, bEnumerator.Current)) {
+						return false; // the two current elments are not equal
+					}
+				} else if (!aHasNext && !bHasNext) {
+					return true; // we got through both!
+				} else {
+					return false; // a and b have different lengths
+				}
+			}
+		}
 	}
 }
