@@ -164,7 +164,27 @@ namespace Software10101.Utils {
 					if (currentChar == '\\') {
 						escaped = true;
 					} else if (currentChar == '"') {
-						return (endIndex == startIndex + 1) ? "" : input.Substring(startIndex + 1, endIndex - startIndex - 1);
+						if (endIndex == startIndex + 1) {
+							return "";
+						}
+
+						StringBuilder unescapedBuilder = new StringBuilder();
+
+						string substring = input.Substring(startIndex + 1, endIndex - startIndex - 1);
+
+						escaped = false;
+						foreach (char c in substring) {
+							if (escaped) {
+								escaped = false;
+							} else if (c == '\\') {
+								escaped = true;
+								continue;
+							}
+
+							unescapedBuilder.Append(c);
+						}
+
+						return unescapedBuilder.ToString();
 					}
 				}
 			}
@@ -254,7 +274,17 @@ namespace Software10101.Utils {
 		}
 
 		private static string DoSerializeString (string input) {
-			return "\"" + input + "\"";
+			StringBuilder escapedStringBuilder = new StringBuilder();
+
+			foreach (char c in input) {
+				if (c == '"' || c == '\\') {
+					escapedStringBuilder.Append("\\");
+				}
+
+				escapedStringBuilder.Append(c);
+			}
+
+			return "\"" + escapedStringBuilder + "\"";
 		}
 	}
 }
