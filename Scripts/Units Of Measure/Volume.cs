@@ -1,7 +1,7 @@
 ﻿namespace Software10101.Units {
 	public struct Volume {
 		private const string UNIT = "km³";
-		
+
 		public static readonly Volume ZERO_VOLUME =      0.0;               // km³
 		public static readonly Volume CUBIC_CENTIMETER = 0.000000000000001; // km³
 		public static readonly Volume CUBIC_METER =      0.000000001;       // km³

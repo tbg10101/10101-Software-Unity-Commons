@@ -28,7 +28,7 @@ namespace System {
 	/// Represents a 1-tuple, or singleton.
 	/// </summary>
 	/// <typeparam name="T1">The type of the tuple's only component.</typeparam>
-	public class Tuple<T1> {
+	public struct Tuple<T1> {
 		/// <summary>
 		/// The value of the current <see cref="Tuple{T1}"/> object's single component.
 		/// </summary>
@@ -41,6 +41,20 @@ namespace System {
 		public Tuple (T1 item1) {
 			Item1 = item1;
 		}
+
+		public override int GetHashCode () {
+			return 17 * Item1.GetHashCode();
+		}
+
+		public override bool Equals (object obj) {
+			if (!(obj is Tuple<T1>)) {
+				return false;
+			}
+
+			Tuple<T1> other = (Tuple<T1>) obj;
+
+			return Equals(Item1, other.Item1);
+		}
 	}
 
 	/// <summary>
@@ -48,7 +62,7 @@ namespace System {
 	/// </summary>
 	/// <typeparam name="T1">The type of the tuple's first component.</typeparam>
 	/// <typeparam name="T2">The type of the tuple's second component.</typeparam>
-	public class Tuple<T1, T2> {
+	public struct Tuple<T1, T2> {
 		/// <summary>
 		/// The value of the current <see cref="Tuple{T1, T2}"/> object's first component.
 		/// </summary>
@@ -67,6 +81,20 @@ namespace System {
 		public Tuple (T1 item1, T2 item2) {
 			Item1 = item1;
 			Item2 = item2;
+		}
+
+		public override int GetHashCode () {
+			return 17 * Item1.GetHashCode() + 31 * Item2.GetHashCode();
+		}
+
+		public override bool Equals (object obj) {
+			if (!(obj is Tuple<T1, T2>)) {
+				return false;
+			}
+
+			Tuple<T1, T2> other = (Tuple<T1, T2>) obj;
+
+			return Equals(Item1, other.Item1) && Equals(Item2, other.Item2);
 		}
 	}
 }
