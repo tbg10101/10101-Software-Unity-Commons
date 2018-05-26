@@ -188,57 +188,57 @@ namespace Software10101.Utils {
 
 		/*
 		 * http://en.wikipedia.org/wiki/Color_temperature
-		 * The returned color's alpha is the temperature as a fraction of the maximum temperature given. 
+		 * The returned color's alpha is the temperature as a fraction of the maximum temperature given.
 		 */
 		public static Color GetColorPhysical (double tInput) {
 			Color o = Color.white;
 
-			double t = Mathf.Clamp((float)tInput, 1000.0f, 40000.0f);
+			float t = Mathf.Clamp((float)tInput, 1000.0f, 40000.0f);
 
-			o.a = (float)(t / 40000.0);
+			o.a = t / 40000.0f;
 
 			//All calculations require Kelvin/100, so only do the conversion once
-			t = tInput / 100.0;
+			t = (float)(tInput / 100.0f);
 
-			Vector3d v = new Vector3d(255.0, 255.0, 255.0);
+			Vector3 v = new Vector3(255.0f, 255.0f, 255.0f);
 
 			//red
-			if (t <= 66.0) {
-				v.x = 255.0;
+			if (t <= 66.0f) {
+				v.x = 255.0f;
 			} else {
-				v.x = t - 60.0;
-				v.x = 329.698727446 * System.Math.Pow(v.x, -0.1332047592);
+				v.x = t - 60.0f;
+				v.x = 329.698727446f * Mathf.Pow(v.x, -0.1332047592f);
 			}
 
-			v.x = System.Math.Min(255.0, System.Math.Max(0.0, v.x));
+			v.x = Mathf.Min(255.0f, Mathf.Max(0.0f, v.x));
 
 			//green
-			if (t <= 66.0) {
+			if (t <= 66.0f) {
 				v.y = t;
-				v.y = 99.4708025861 * System.Math.Log(v.y) - 161.1195681661;
+				v.y = 99.4708025861f * Mathf.Log(v.y) - 161.1195681661f;
 			} else {
-				v.y = t - 60.0;
-				v.y = 288.1221695283 * System.Math.Pow(v.y, -0.0755148492);
+				v.y = t - 60.0f;
+				v.y = 288.1221695283f * Mathf.Pow(v.y, -0.0755148492f);
 			}
 
-			v.y = System.Math.Min(255.0, System.Math.Max(0.0, v.y));
+			v.y = Mathf.Min(255.0f, Mathf.Max(0.0f, v.y));
 
 			//blue
-			if (t >= 66.0) {
-				v.z = 255.0;
+			if (t >= 66.0f) {
+				v.z = 255.0f;
 			} else if (t < 19.0f) {
-				v.z = 0.0;
+				v.z = 0.0f;
 			} else {
-				v.z = t - 10.0;
-				v.z = 138.5177312231 * System.Math.Log(v.z) - 305.0447927307;
+				v.z = t - 10.0f;
+				v.z = 138.5177312231f * Mathf.Log(v.z) - 305.0447927307f;
 			}
 
-			v.z = System.Math.Min(255.0, System.Math.Max(0.0, v.z));
+			v.z = Mathf.Min(255.0f, Mathf.Max(0.0f, v.z));
 
 			// convert to color
-			o.r = (float)(v.x / 255.0);
-			o.g = (float)(v.y / 255.0);
-			o.b = (float)(v.z / 255.0);
+			o.r = v.x / 255.0f;
+			o.g = v.y / 255.0f;
+			o.b = v.z / 255.0f;
 
 			return o;
 		}
