@@ -39,7 +39,7 @@ namespace Software10101.Logging {
 		/// <summary>
 		/// The file to which messages will be written.
 		/// </summary>
-		public static string FilePath = UnityEngine.Application.persistentDataPath + "/log.txt";
+		public static string FilePath = null;
 
 		/// <summary>
 		/// Whether or not the method name and line number is logged with messages.
@@ -70,6 +70,12 @@ namespace Software10101.Logging {
 				Stop();
 			}
 
+			if (FilePath == null) {
+				FilePath = UnityEngine.Application.persistentDataPath + "/log.txt";
+			}
+
+			Directory.CreateDirectory(Directory.GetParent(FilePath).FullName);
+
 			_writer = new StreamWriter(FilePath, true, Encoding.Unicode);
 
 			UnityEngine.Debug.Log("Logging started: " + FilePath);
@@ -79,10 +85,14 @@ namespace Software10101.Logging {
 		/// Closes the stream writer to the configured log file.
 		/// </summary>
 		public static void Stop () {
-			_writer.Flush();
-			_writer.Close();
+			if (_writer != null) {
+				_writer.Flush();
+				_writer.Close();
 
-			_writer = null;
+				_writer = null;
+
+				UnityEngine.Debug.Log("Logging stopped: " + FilePath);
+			}
 		}
 
 		// internal method for processing messages and parameters, then writing the result to disk

@@ -200,45 +200,47 @@ namespace Software10101.Utils {
 			//All calculations require Kelvin/100, so only do the conversion once
 			t = (float)(tInput / 100.0f);
 
-			Vector3 v = new Vector3(255.0f, 255.0f, 255.0f);
+			double x =255.0;
+			double y =255.0;
+			double z =255.0;
 
 			//red
-			if (t <= 66.0f) {
-				v.x = 255.0f;
+			if (t <= 66.0) {
+				x = 255.0;
 			} else {
-				v.x = t - 60.0f;
-				v.x = 329.698727446f * Mathf.Pow(v.x, -0.1332047592f);
+				x = t - 60.0;
+				x = 329.698727446 * System.Math.Pow(x, -0.1332047592);
 			}
 
-			v.x = Mathf.Min(255.0f, Mathf.Max(0.0f, v.x));
+			x = System.Math.Min(255.0, System.Math.Max(0.0, x));
 
 			//green
-			if (t <= 66.0f) {
-				v.y = t;
-				v.y = 99.4708025861f * Mathf.Log(v.y) - 161.1195681661f;
+			if (t <= 66.0) {
+				y = t;
+				y = 99.4708025861 * System.Math.Log(y) - 161.1195681661;
 			} else {
-				v.y = t - 60.0f;
-				v.y = 288.1221695283f * Mathf.Pow(v.y, -0.0755148492f);
+				y = t - 60.0;
+				y = 288.1221695283 * System.Math.Pow(y, -0.0755148492);
 			}
 
-			v.y = Mathf.Min(255.0f, Mathf.Max(0.0f, v.y));
+			y = System.Math.Min(255.0, System.Math.Max(0.0, y));
 
 			//blue
-			if (t >= 66.0f) {
-				v.z = 255.0f;
+			if (t >= 66.0) {
+				z = 255.0;
 			} else if (t < 19.0f) {
-				v.z = 0.0f;
+				z = 0.0;
 			} else {
-				v.z = t - 10.0f;
-				v.z = 138.5177312231f * Mathf.Log(v.z) - 305.0447927307f;
+				z = t - 10.0;
+				z = 138.5177312231 * System.Math.Log(z) - 305.0447927307;
 			}
 
-			v.z = Mathf.Min(255.0f, Mathf.Max(0.0f, v.z));
+			z = System.Math.Min(255.0, System.Math.Max(0.0, z));
 
 			// convert to color
-			o.r = v.x / 255.0f;
-			o.g = v.y / 255.0f;
-			o.b = v.z / 255.0f;
+			o.r = (float)(x / 255.0);
+			o.g = (float)(y / 255.0);
+			o.b = (float)(z / 255.0);
 
 			return o;
 		}
