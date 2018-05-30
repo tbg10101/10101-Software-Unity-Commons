@@ -200,9 +200,9 @@ namespace Software10101.Utils {
 			//All calculations require Kelvin/100, so only do the conversion once
 			t = (float)(tInput / 100.0f);
 
-			double x =255.0;
-			double y =255.0;
-			double z =255.0;
+			double x = 255.0;
+			double y = 255.0;
+			double z = 255.0;
 
 			//red
 			if (t <= 66.0) {
