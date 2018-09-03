@@ -212,6 +212,14 @@ namespace Software10101.Utils {
 			throw new Exception("Something went wrong while deserializing:\n" + input);
 		}
 
+		public static string Serialize<K, V> (IDictionary<K, V> input) {
+			IDictionary<string, object> tmp = new Dictionary<string, object>();
+
+			input.ForEach(entry => { tmp[entry.Key.ToString()] = entry.Value; });
+
+			return Serialize(tmp);
+		}
+
 		public static string Serialize (IDictionary<string, object> input) {
 			return DoSerializeMap(input);
 		}
