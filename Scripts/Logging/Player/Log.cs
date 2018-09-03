@@ -106,7 +106,7 @@ namespace Software10101.Logging {
 
 			if (parameters != null && parameters.Length >= 1) {
 				if (parameters[parameters.Length - 1] is Exception e) {
-					processedMessage = string.Join(Environment.NewLine, processedMessage, e.Message, e.StackTrace);
+					processedMessage = string.Join(Environment.NewLine, processedMessage, $"{e.GetType().FullName}: {e.Message}", e.StackTrace);
 				}
 			}
 
