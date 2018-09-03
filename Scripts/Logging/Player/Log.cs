@@ -105,16 +105,8 @@ namespace Software10101.Logging {
 			}
 
 			if (parameters != null && parameters.Length >= 1) {
-				Exception e = parameters[parameters.Length - 1] as Exception;
-
-				if (e != null) {
-					StringJoiner joiner = new StringJoiner(Environment.NewLine);
-
-					joiner.Add(processedMessage);
-					joiner.Add(e.Message);
-					joiner.Add(e.StackTrace);
-
-					processedMessage = joiner.ToString();
+				if (parameters[parameters.Length - 1] is Exception e) {
+					processedMessage = string.Join(Environment.NewLine, processedMessage, e.Message, e.StackTrace);
 				}
 			}
 

@@ -121,46 +121,6 @@ namespace System.Collections.Generic {
 			}
 		}
 
-		public static IDictionary<string, string> SetCookieDictionary (this IDictionary<string, string> headers) {
-			IDictionary<string, string> result = new Dictionary<string, string>();
-
-			string setCookiesEntry = null;
-
-			headers.TryGetValue("Set-Cookie", out setCookiesEntry);
-
-			if (setCookiesEntry == null) {
-				headers.TryGetValue("set-cookie", out setCookiesEntry);
-			}
-
-			if (setCookiesEntry == null) {
-				headers.TryGetValue("SET-COOKIE", out setCookiesEntry);
-			}
-
-			if (setCookiesEntry != null) {
-				string[] splitEntry = setCookiesEntry.Split(';');
-				string[] splitCookie = splitEntry[0].Split(new []{'='}, 2, StringSplitOptions.None);
-
-				if (splitCookie.Length == 1) {
-					result.Add(splitCookie[0], null);
-				} else if (splitCookie.Length == 2) {
-					result.Add(splitCookie[0], splitCookie[1]);
-				} else {
-					Log.Warn("Not loading cookie: {0}", setCookiesEntry);
-				}
-			}
-
-			return result;
-		}
-
-		public static string CookieString (this IDictionary<string, string> headers) {
-			StringJoiner joiner = new StringJoiner(";");
-
-			headers.ForEach(
-				entry => { joiner.Add(entry.Key + "=" + entry.Value); });
-
-			return joiner.ToString();
-		}
-
 		public static void AddAll<K, V> (this IDictionary<K, V> me, IDictionary<K, V> other) {
 			other.ForEach(
 				entry => {
