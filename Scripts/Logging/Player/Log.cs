@@ -98,16 +98,20 @@ namespace Software10101.Logging {
 		// internal method for processing messages and parameters, then writing the result to disk
 		[StringFormatMethod("message")]
 		private static string LogInternal (Level level, string message, params object[] parameters) {
-			string processedMessage = string.Format(message, parameters ?? NullArrayReplacement);
-
-			if (_writer == null) {
-				return processedMessage;
+			if (message == null) {
+				return "";
 			}
+
+			string processedMessage = string.Format(message, parameters ?? NullArrayReplacement);
 
 			if (parameters != null && parameters.Length >= 1) {
 				if (parameters[parameters.Length - 1] is Exception e) {
 					processedMessage = string.Join(Environment.NewLine, processedMessage, $"{e.GetType().FullName}: {e.Message}", e.StackTrace);
 				}
+			}
+
+			if (_writer == null) {
+				return processedMessage;
 			}
 
 			DateTime dateTime = DateTime.Now;
