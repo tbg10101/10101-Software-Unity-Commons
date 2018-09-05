@@ -105,7 +105,9 @@ namespace Software10101.Logging {
 			string processedMessage = string.Format(message, parameters ?? NullArrayReplacement);
 
 			if (parameters != null && parameters.Length >= 1) {
-				if (parameters[parameters.Length - 1] is Exception e) {
+				Exception e = parameters[parameters.Length - 1] as Exception;
+
+				if (parameters[parameters.Length - 1] is Exception && e != null) {
 					processedMessage = string.Join(Environment.NewLine, processedMessage, $"{e.GetType().FullName}: {e.Message}", e.StackTrace);
 				}
 			}
