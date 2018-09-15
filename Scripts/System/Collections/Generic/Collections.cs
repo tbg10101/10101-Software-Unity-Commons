@@ -80,7 +80,7 @@ namespace System.Collections.Generic {
 
 		/// <summary>
 		/// Performs the specified <see cref="Func{T, TResult}"/> on each element of the input <see cref="IEnumerable{T}"/>, mapping each element from
-		/// T to R. The result is an <see cref="IEnumerable{R}"/> in ste same order as the input./>
+		/// T to R. The result is an <see cref="IEnumerable{R}"/> in the same order as the input./>
 		/// </summary>
 		/// <typeparam name="T">The input type of the objects in the input <see cref="IEnumerable"/>.</typeparam>
 		/// <typeparam name="TResult">The output type of the objects in the returned <see cref="IEnumerable"/>.</typeparam>
@@ -88,16 +88,35 @@ namespace System.Collections.Generic {
 		/// <param name="action">The <see cref="Func{T, TResult}"/> delegate to perform on each element of the <see cref="IEnumerable"/> which maps
 		/// from T to R.</param>
 		public static IEnumerable<TResult> Map<T, TResult> (this IEnumerable<T> sequence, Func<T, TResult> action) {
-			List<TResult> output = new List<TResult>();
+			IList<TResult> output = new List<TResult>();
 
 			foreach (T item in sequence) {
 				output.Add(action(item));
 			}
 
 			return output;
-		}
+        }
 
-		public static T[] ToArray<T> (params T[] array) {
+        /// <summary>
+        /// Performs the specified <see cref="Func{T, TResult}"/> on each element of the input <see cref="IList{T}"/>, mapping each element from
+        /// T to R. The result is an <see cref="IList{R}"/> in the same order as the input./>
+        /// </summary>
+        /// <typeparam name="T">The input type of the objects in the input <see cref="IList"/>.</typeparam>
+        /// <typeparam name="TResult">The output type of the objects in the returned <see cref="IList"/>.</typeparam>
+        /// <param name="sequence">The <see cref="IList"/> to be iterated over.</param>
+        /// <param name="action">The <see cref="Func{T, TResult}"/> delegate to perform on each element of the <see cref="IList"/> which maps
+        /// from T to R.</param>
+        public static IList<TResult> Map<T, TResult>(this IList<T> sequence, Func<T, TResult> action) {
+            IList<TResult> output = new List<TResult>();
+
+            foreach (T item in sequence) {
+                output.Add(action(item));
+            }
+
+            return output;
+        }
+
+        public static T[] ToArray<T> (params T[] array) {
 			return array;
 		}
 
@@ -128,15 +147,19 @@ namespace System.Collections.Generic {
 				});
 		}
 
-		public static IDictionary<K, V> Clone<K, V> (this IDictionary<K, V> me) {
-			IDictionary<K, V> result = new Dictionary<K, V>();
+        public static IDictionary<K, V> Clone<K, V> (this IDictionary<K, V> me) {
+            IDictionary<K, V> result = new Dictionary<K, V>();
 
-			me.ForEach(
-				entry => {
-					result.Add(entry.Key, entry.Value);
-				});
+            me.ForEach(
+                entry => {
+                    result.Add(entry.Key, entry.Value);
+                });
 
-			return result;
-		}
-	}
+            return result;
+        }
+
+        public static T LastElement<T>(this IList<T> me) {
+            return me[me.Count - 1];
+        }
+    }
 }
