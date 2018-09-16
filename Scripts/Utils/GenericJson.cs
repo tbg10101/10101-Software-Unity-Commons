@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -217,10 +218,10 @@ namespace Software10101.Utils {
 
 			input.ForEach(entry => { tmp[entry.Key.ToString()] = entry.Value; });
 
-			return Serialize(tmp);
+            return Serialize((IDictionary)tmp);
 		}
 
-		public static string Serialize (IDictionary<string, object> input) {
+		public static string Serialize (IDictionary input) {
 			return DoSerializeMap(input);
 		}
 
@@ -242,17 +243,18 @@ namespace Software10101.Utils {
 				return DoSerializeString(s);
 			}
 
-			IList<object> l = input as IList<object>;
+			Object l = input as IList;
 			if (l != null) {
-				return DoSerializeList(l);
+				return DoSerializeList(input as IList);
 			}
 
-			IDictionary<string, object> m = input as IDictionary<string, object>;
-			if (m != null) {
-				return DoSerializeMap(m);
-			}
+            Object m2 = input as IDictionary;
+            if (m2 != null)
+            {
+                return DoSerializeMap(m2 as IDictionary);
+            }
 
-			try {
+            try {
 				double d = double.Parse(input.ToString());
 				return d.ToString(CultureInfo.InvariantCulture);
 			} catch (InvalidCastException) {
@@ -261,17 +263,19 @@ namespace Software10101.Utils {
 			throw new Exception("Could not serialize: " + input);
 		}
 
-		private static string DoSerializeMap (IDictionary<string, object> input) {
-			StringJoiner output = new StringJoiner(",", "{", "}");
+        private static string DoSerializeMap(IDictionary input) {
+            StringJoiner output = new StringJoiner(",", "{", "}");
 
-			foreach (KeyValuePair<string, object> entry in input) {
-				output.Add(DoSerializeString(entry.Key) + ":" + DoSerialize(entry.Value));
-			}
+            ICollection keys = input.Keys;
 
-			return output.ToString();
-		}
+            foreach (Object key in keys) {
+                output.Add(DoSerializeString(key.ToString()) + ":" + DoSerialize(input[key]));
+            }
 
-		private static string DoSerializeList (IList<object> input) {
+            return output.ToString();
+        }
+
+        private static string DoSerializeList (IList input) {
 			StringJoiner output = new StringJoiner(",", "[", "]");
 
 			for (int i = 0; i < input.Count; i++) {

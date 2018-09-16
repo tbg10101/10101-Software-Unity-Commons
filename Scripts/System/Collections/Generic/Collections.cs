@@ -147,6 +147,10 @@ namespace System.Collections.Generic {
 				});
 		}
 
+        public static void AddAll<T> (this IList<T> me, IEnumerable<T> other) {
+            other.ForEach(me.Add);
+        }
+
         public static IDictionary<K, V> Clone<K, V> (this IDictionary<K, V> me) {
             IDictionary<K, V> result = new Dictionary<K, V>();
 
