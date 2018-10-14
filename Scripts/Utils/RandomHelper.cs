@@ -202,7 +202,7 @@ namespace FragmentedGalaxy {
 			public double3 GetNext () {
 				Length range = _width * (double)UnityEngine.Random.Range(0.0f, 1.0f) + _innerRadius;
 				Length elevation = _thickness * (double)UnityEngine.Random.Range(-0.5f, 0.5f);
-				double2 basePos = new double2(UnityEngine.Random.insideUnitCircle.normalized);
+				double2 basePos = math.normalize(UnityEngine.Random.insideUnitCircle);
 
 				return new double3(
 					range * basePos.x,
@@ -238,7 +238,7 @@ namespace FragmentedGalaxy {
 			}
 
 			public double3 GetNext () {
-				double3 rand = new double3(UnityEngine.Random.insideUnitSphere);
+				double3 rand = UnityEngine.Random.insideUnitSphere.toDouble3();
 				return _radius * rand + _center;
 			}
 		}
