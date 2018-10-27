@@ -1,0 +1,15 @@
+{
+    "name": "10101Software.Loading",
+    "references": [
+        "10101Software.Commons.System.Collections",
+        "1010Software.Commons.Logging"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using Software10101.Units;
 using Software10101.Utils;
-using Unity.Mathematics;
 using UnityEngine;
 using Random = System.Random;
 
-namespace FragmentedGalaxy {
+namespace FragmentedGalaxy.Utils {
 	public static class RandomHelper {
 		public static readonly Random SystemRandom = new Random();
 
@@ -183,63 +181,6 @@ namespace FragmentedGalaxy {
 			public PickerEntry (T bucketType, float proportion) {
 				BucketType = bucketType;
 				Proportion = proportion < 0 ? 0 : proportion;
-			}
-		}
-
-		public class RingPositionGenerator : IRandomGenerator<double3> {
-			private readonly double3 _center;
-			private readonly Length _innerRadius;
-			private readonly Length _width;
-			private readonly Length _thickness;
-
-			public RingPositionGenerator (double3 center, Length innerRadius, Length width, Length thickness) {
-				_center = center;
-				_innerRadius = innerRadius;
-				_width = width;
-				_thickness = thickness;
-			}
-
-			public double3 GetNext () {
-				Length range = _width * (double)UnityEngine.Random.Range(0.0f, 1.0f) + _innerRadius;
-				Length elevation = _thickness * (double)UnityEngine.Random.Range(-0.5f, 0.5f);
-				double2 basePos = math.normalize(UnityEngine.Random.insideUnitCircle);
-
-				return new double3(
-					range * basePos.x,
-					elevation,
-					range * basePos.y) + _center;
-			}
-		}
-
-		public class CubePositionGenerator : IRandomGenerator<double3> {
-			private readonly double3 _center;
-			private readonly Length _radius;
-
-			public CubePositionGenerator (double3 center, Length radius) {
-				_center = center;
-				_radius = radius;
-			}
-
-			public double3 GetNext () {
-				return new double3(
-					_radius * (double)UnityEngine.Random.Range(-1.0f, 1.0f),
-					_radius * (double)UnityEngine.Random.Range(-1.0f, 1.0f),
-					_radius * (double)UnityEngine.Random.Range(-1.0f, 1.0f)) + _center;
-			}
-		}
-
-		public class SpherePositionGenerator : IRandomGenerator<double3> {
-			private readonly double3 _center;
-			private readonly Length _radius;
-
-			public SpherePositionGenerator (double3 center, Length radius) {
-				_center = center;
-				_radius = radius;
-			}
-
-			public double3 GetNext () {
-				double3 rand = UnityEngine.Random.insideUnitSphere.toDouble3();
-				return _radius * rand + _center;
 			}
 		}
 	}

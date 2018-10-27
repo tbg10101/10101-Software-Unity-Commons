@@ -1,0 +1,15 @@
+{
+    "name": "10101Software.Commons.Utils.Json",
+    "references": [
+        "10101Software.Commons.System.Collections",
+        "10101Software.Commons.System.Text"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

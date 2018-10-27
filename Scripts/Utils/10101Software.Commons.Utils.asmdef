@@ -1,0 +1,15 @@
+{
+    "name": "10101Software.Commons.Utils",
+    "references": [
+        "10101Software.FrameCache",
+        "10101Software.Commons.UnitsOfMeasure"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

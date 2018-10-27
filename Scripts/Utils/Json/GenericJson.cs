@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace Software10101.Utils {
+namespace Software10101.Utils.Json {
 	public static class GenericJson {
 		public static Dictionary<string, object> Deserialize (string input) {
 			// find the first non-escaped opening brace in the string

@@ -1,0 +1,14 @@
+{
+    "name": "10101Software.FrameCache",
+    "references": [
+        "10101Software.Commons.System.Collections"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

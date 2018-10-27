@@ -1,9 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text;
-using Software10101.Logging;
-using UnityEngine.Networking.NetworkSystem;
-
-namespace System.Collections.Generic {
+﻿namespace System.Collections.Generic {
 	/// <summary>
 	/// This class consists exclusively of static methods that operate on or return collections.
 	/// </summary>
