@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Software10101.Utils;
+using System.Text;
 using UnityEngine;
 using Random = System.Random;
 
-namespace FragmentedGalaxy.Utils {
+namespace Software10101.Utils {
 	public static class RandomHelper {
 		public static readonly Random SystemRandom = new Random();
 
@@ -182,6 +182,16 @@ namespace FragmentedGalaxy.Utils {
 				BucketType = bucketType;
 				Proportion = proportion < 0 ? 0 : proportion;
 			}
+		}
+		
+		public static string NewRoomName(int length = 4, string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") {
+			StringBuilder builder = new StringBuilder();
+            
+			for (int i = 0; i < length; i++) {
+				builder.Append(chars[Mathf.FloorToInt(UnityEngine.Random.value * chars.Length)]);
+			}
+
+			return builder.ToString();
 		}
 	}
 }
