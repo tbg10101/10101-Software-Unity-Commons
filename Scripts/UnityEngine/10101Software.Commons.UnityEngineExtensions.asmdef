@@ -1,3 +1,13 @@
-﻿{
-	"name": "10101Software.Commons.UnityEngineExtensions"
+{
+    "name": "10101Software.Commons.UnityEngineExtensions",
+    "references": [],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
 }

@@ -1,7 +1,7 @@
 {
     "name": "10101Software.FrameCache",
     "references": [
-        "10101Software.Commons.System.Collections"
+        "GUID:05fe0759bcce5e84a8a352ff8bb85b3a"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
@@ -10,5 +10,6 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": []
 }

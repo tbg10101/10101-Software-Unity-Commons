@@ -1,8 +1,8 @@
 {
     "name": "10101Software.Commons.Utils",
     "references": [
-        "10101Software.FrameCache",
-        "10101Software.Commons.UnitsOfMeasure"
+        "GUID:5438486e5aa486e4e812545e911ab137",
+        "GUID:5551ca34bd1f0224dbfb70f45f1db8d5"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
@@ -11,5 +11,6 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": []
 }
