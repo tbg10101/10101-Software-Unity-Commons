@@ -1,0 +1,17 @@
+{
+    "name": "10101Software.Commons.Logging.Editor",
+    "references": [
+        "GUID:abc5f758a7106c14f87ef51a8625bf48"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
