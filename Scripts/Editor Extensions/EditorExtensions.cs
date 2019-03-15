@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 
-namespace UnityEditor {
+namespace Software10101.EditorExtensions.Attributes {
     public static class EditorExtensions {
         /// <summary>
         /// Gets the direct children of a SerializedProperty. (it does not recurse into children)

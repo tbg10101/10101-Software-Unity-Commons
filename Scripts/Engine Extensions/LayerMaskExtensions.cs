@@ -1,6 +1,7 @@
 ﻿using System;
+using UnityEngine;
 
-namespace UnityEngine {
+namespace Software10101.EngineExtensions {
 	public static class LayerMaskExtensions {
 		private const int BitsPerInt = sizeof(int) * 8;
 		private static readonly int[] LayerBuffer = new int[BitsPerInt];

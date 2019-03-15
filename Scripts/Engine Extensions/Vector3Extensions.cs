@@ -1,4 +1,6 @@
-﻿namespace UnityEngine {
+﻿using UnityEngine;
+
+namespace Software10101.EngineExtensions {
 	public static class Vector3Extensions {
 		public static Vector3 limitMagnitude (this Vector3 v, float maxMagnitude) {
 			if (v.sqrMagnitude <= maxMagnitude * maxMagnitude) {

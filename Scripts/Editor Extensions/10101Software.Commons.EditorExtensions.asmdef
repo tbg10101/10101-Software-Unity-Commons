@@ -1,6 +1,8 @@
 {
-    "name": "10101Software.Commons.UnityEngineExtensions.Editor",
-    "references": [],
+    "name": "10101Software.Commons.EditorExtensions",
+    "references": [
+        "GUID:49087bc045a646d4fbc6f462c726b858"
+    ],
     "optionalUnityReferences": [],
     "includePlatforms": [
         "Editor"
