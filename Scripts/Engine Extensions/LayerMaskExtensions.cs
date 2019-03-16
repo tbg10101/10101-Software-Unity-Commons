@@ -3,21 +3,16 @@ using UnityEngine;
 
 namespace Software10101.EngineExtensions {
 	public static class LayerMaskExtensions {
-		private const int BitsPerInt = sizeof(int) * 8;
-		private static readonly int[] LayerBuffer = new int[BitsPerInt];
+		private const int Size = sizeof(int) * 8;
+		private static readonly int[] LayerBuffer = new int[Size];
 		public static int[] GetLayers (this LayerMask layerMask) {
 			int length = 0;
 
-			int currentMask = layerMask;
-
-			for (int i = 0; i < BitsPerInt; i++) {
-				if (currentMask % 2 == 1) {
+			for (int i = 0; i < Size; i++) {
+				if (layerMask.IsEnabled(i)) {
 					LayerBuffer[length] = i;
 					length++;
-					currentMask--;
 				}
-
-				currentMask /= 2;
 			}
 
 			int[] result = new int[length];
@@ -26,6 +21,9 @@ namespace Software10101.EngineExtensions {
 
 			return result;
 		}
-	}
 
+		public static bool IsEnabled (this LayerMask layerMask, int layer) {
+			return layer < Size && (layerMask.value & (1 << layer)) != 0;
+		}
+	}
 }

@@ -8,8 +8,6 @@ namespace Software10101.EditorExtensions.Attributes {
         ///
         /// Source: https://forum.unity.com/threads/loop-through-serializedproperty-children.435119/#post-2814895
         /// </summary>
-        /// <param name="property"></param>
-        /// <returns></returns>
         public static IEnumerable<SerializedProperty> GetChildren (this SerializedProperty property) {
             property = property.Copy();
             SerializedProperty nextElement = property.Copy();
