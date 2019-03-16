@@ -117,7 +117,9 @@ namespace Software10101.Utils {
 		}
 
 		public static Color GetColor () {
-			Color c = new Color(UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f), UnityEngine.Random.Range(0.0f, 1.0f));
+			Color c = new Color(UnityEngine.Random.Range(0.0f, 1.0f),
+			                    UnityEngine.Random.Range(0.0f, 1.0f),
+			                    UnityEngine.Random.Range(0.0f, 1.0f));
 
 			return c;
 		}
@@ -183,10 +185,10 @@ namespace Software10101.Utils {
 				Proportion = proportion < 0 ? 0 : proportion;
 			}
 		}
-		
+
 		public static string NewRoomName(int length = 4, string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") {
 			StringBuilder builder = new StringBuilder();
-            
+
 			for (int i = 0; i < length; i++) {
 				builder.Append(chars[Mathf.FloorToInt(UnityEngine.Random.value * chars.Length)]);
 			}
