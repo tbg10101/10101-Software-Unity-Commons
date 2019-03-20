@@ -5,17 +5,17 @@ namespace System {
 
 		private const byte IntBitCount = sizeof(int) * 8;
 
-		public static int SetBit (this int i, byte index) {
+		public static int SetBit (this int i, int index) {
 			TestIndex(index);
 			return i | 1 << index;
 		}
 
-		public static int ResetBit (this int i, byte index) {
+		public static int ResetBit (this int i, int index) {
 			TestIndex(index);
 			return i & ~(1 << index);
 		}
 
-		public static bool IsBitSet (this int i, byte index) {
+		public static bool IsBitSet (this int i, int index) {
 			TestIndex(index);
 			return (i & (1 << index)) != 0;
 		}
@@ -24,9 +24,10 @@ namespace System {
 			return Convert.ToString(i, 2).PadLeft(IntBitCount, '0');
 		}
 
-		private static void TestIndex (byte index) {
-			if (index >= IntBitCount) {
-				throw new ArgumentOutOfRangeException(nameof(index), $"Index ({index}) must be less than {IntBitCount}.");
+		private static void TestIndex (int index) {
+			if (index < 0 || index >= IntBitCount) {
+				throw new ArgumentOutOfRangeException(nameof(index),
+				                                      $"Index ({index}) must be greater than 0 and less than {IntBitCount}.");
 			}
 		}
 	}
