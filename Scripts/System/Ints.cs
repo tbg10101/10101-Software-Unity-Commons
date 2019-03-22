@@ -3,7 +3,7 @@ namespace System {
 		public const int NoBitsSet = 0;
 		public const int AllBitsSet = -1;
 
-		private const byte IntBitCount = sizeof(int) * 8;
+		public const byte IntBitCount = sizeof(int) * 8;
 
 		public static int SetBit (this int i, int index) {
 			TestIndex(index);
