@@ -160,5 +160,12 @@
         public static T LastElement<T>(this IList<T> me) {
             return me[me.Count - 1];
         }
+
+        // ReSharper disable once UseDeconstructionOnParameter // deconstructing here is recursion and will cause a stack overflow
+        public static void Deconstruct<K, V>(this KeyValuePair<K, V> pair, out K key, out V value)
+        {
+	        key = pair.Key;
+	        value = pair.Value;
+        }
     }
 }
