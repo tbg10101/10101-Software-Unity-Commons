@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Software10101.UI {
+namespace Software10101.Components.UI {
 	[RequireComponent(typeof(Text))]
 	public class FpsCounter : MonoBehaviour {
 		private Text _text = null;

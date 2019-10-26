@@ -13,6 +13,10 @@
 			return new List<T> { o };
 		}
 
+		public static List<T> ToSingletonList<T>(this T obj) {
+			return new List<T>(1) {obj};
+		}
+
 		/// <summary>
 		/// Returns an empty list.
 		/// </summary>
@@ -162,10 +166,127 @@
         }
 
         // ReSharper disable once UseDeconstructionOnParameter // deconstructing here is recursion and will cause a stack overflow
-        public static void Deconstruct<K, V>(this KeyValuePair<K, V> pair, out K key, out V value)
-        {
-	        key = pair.Key;
-	        value = pair.Value;
+        public static void Deconstruct<TKey, TValue>(this KeyValuePair<TKey, TValue> kvp, out TKey key, out TValue value) {
+	        key = kvp.Key;
+	        value = kvp.Value;
+        }
+
+        public static T MinElement<T>(this IEnumerable<T> source, Func<T, IComparable> selector) {
+            if (source == null) {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (selector == null) {
+                throw new ArgumentNullException(nameof(selector));
+            }
+
+            IComparable minimum = null;
+            T value = default;
+
+            foreach (T v in source) {
+                IComparable current = selector.Invoke(v);
+
+                if (current == null) {
+                    throw new NullReferenceException();
+                }
+
+                if (minimum == null || current.CompareTo(minimum) < 0) {
+                    minimum = current;
+                    value = v;
+                }
+            }
+
+            return value;
+        }
+
+        public static T1 MinElement<T1, T2>(this IEnumerable<T1> source, Func<T1, T2> selector) where T2 : IComparable<T2> {
+            if (source == null) {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (selector == null) {
+                throw new ArgumentNullException(nameof(selector));
+            }
+
+            bool firstIteration = true;
+
+            T2 minimum = default;
+            T1 value = default;
+
+            foreach (T1 v in source) {
+                T2 current = selector.Invoke(v);
+
+                if (current == null) {
+                    throw new NullReferenceException();
+                }
+
+                if (firstIteration || current.CompareTo(minimum) < 0) {
+                    minimum = current;
+                    value = v;
+                    firstIteration = false;
+                }
+            }
+
+            return value;
+        }
+
+        public static T MaxElement<T>(this IEnumerable<T> source, Func<T, IComparable> selector) {
+            if (source == null) {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (selector == null) {
+                throw new ArgumentNullException(nameof(selector));
+            }
+
+            IComparable maximum = null;
+            T value = default;
+
+            foreach (T v in source) {
+                IComparable current = selector.Invoke(v);
+
+                if (current == null) {
+                    throw new NullReferenceException();
+                }
+
+                if (maximum == null || current.CompareTo(maximum) > 0) {
+                    maximum = current;
+                    value = v;
+                }
+            }
+
+            return value;
+        }
+
+        public static T1 MaxElement<T1, T2>(this IEnumerable<T1> source, Func<T1, T2> selector) where T2 : IComparable<T2> {
+            if (source == null) {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (selector == null) {
+                throw new ArgumentNullException(nameof(selector));
+            }
+
+            bool firstIteration = true;
+
+            T2 maximum = default;
+            T1 value = default;
+
+            foreach (T1 v in source) {
+                T2 current = selector.Invoke(v);
+
+                if (current == null) {
+                    throw new NullReferenceException();
+                }
+
+                if (firstIteration || current.CompareTo(maximum) > 0) {
+                    maximum = current;
+                    value = v;
+                    firstIteration = false;
+                }
+            }
+
+            return value;
         }
     }
 }

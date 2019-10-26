@@ -1,10 +1,9 @@
 {
-    "name": "10101Software.Commons.Utils.Json",
+    "name": "10101Software.Commons.Serialization.Json",
     "references": [
         "GUID:05fe0759bcce5e84a8a352ff8bb85b3a",
         "GUID:1c3647b4da9f81343bd2a5b2a2f7b6e2"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -12,5 +11,6 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": []
+    "versionDefines": [],
+    "noEngineReferences": false
 }
