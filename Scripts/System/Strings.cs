@@ -16,5 +16,9 @@ namespace System {
 			input.CopyTo(arrayBytes, 0);
 			return arrayBytes.ToString(encoding);
 		}
+
+		public static Guid ToGuid(this string input) {
+			return Guid.Parse(input);
+		}
 	}
 }

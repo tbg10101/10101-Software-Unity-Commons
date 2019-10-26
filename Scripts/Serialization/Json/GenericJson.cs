@@ -6,7 +6,9 @@ using System.Text;
 
 namespace Software10101.Serialization.Json {
 	public static class GenericJson {
-		public static Dictionary<string, object> Deserialize (string input) {
+		// ReSharper disable once UnusedMember.Global
+		// ReSharper disable once MemberCanBePrivate.Global
+		public static JsonDictionary Deserialize (string input) {
 			// find the first non-escaped opening brace in the string
 			int startIndex;
 			bool escaped = false;
@@ -27,13 +29,11 @@ namespace Software10101.Serialization.Json {
 				}
 			}
 
-			int endIndex;
-
-			return DoDeserializeMap(input, startIndex, out endIndex);
+			return DoDeserializeMap(input, startIndex, out _);
 		}
 
-		private static Dictionary<string, object> DoDeserializeMap (string input, int startIndex, out int endIndex) {
-			Dictionary<string, object> output = new Dictionary<string, object>();
+		private static JsonDictionary DoDeserializeMap (string input, int startIndex, out int endIndex) {
+			JsonDictionary output = new JsonDictionary();
 
 			bool escaped = false;
 			bool pastKeyValueSeparator = false;
@@ -51,8 +51,7 @@ namespace Software10101.Serialization.Json {
 						escaped = true;
 					} else if (!pastKeyValueSeparator) {
 						if (currentChar == '"') {
-							int newEndIndex;
-							key = DoDeserializeString(input, endIndex, out newEndIndex);
+							key = DoDeserializeString(input, endIndex, out var newEndIndex);
 							endIndex = newEndIndex;
 						} else if (currentChar == ':' && key != null) {
 							pastKeyValueSeparator = true;
@@ -62,16 +61,13 @@ namespace Software10101.Serialization.Json {
 						}
 					} else {
 						if (currentChar == '"') {
-							int newEndIndex;
-							value = DoDeserializeString(input, endIndex, out newEndIndex);
+							value = DoDeserializeString(input, endIndex, out var newEndIndex);
 							endIndex = newEndIndex;
 						} else if (currentChar == '{') {
-							int newEndIndex;
-							value = DoDeserializeMap(input, endIndex, out newEndIndex);
+							value = DoDeserializeMap(input, endIndex, out var newEndIndex);
 							endIndex = newEndIndex;
 						} else if (currentChar == '[') {
-							int newEndIndex;
-							value = DoDeserializeList(input, endIndex, out newEndIndex);
+							value = DoDeserializeList(input, endIndex, out var newEndIndex);
 							endIndex = newEndIndex;
 						} else if (currentChar == ',') {
 							if (value == null) {
@@ -100,8 +96,8 @@ namespace Software10101.Serialization.Json {
 			throw new Exception("Something went wrong while deserializing:\n" + input.Substring(startIndex));
 		}
 
-		private static List<object> DoDeserializeList (string input, int startIndex, out int endIndex) {
-			List<object> output = new List<object>();
+		private static JsonList DoDeserializeList (string input, int startIndex, out int endIndex) {
+			JsonList output = new JsonList();
 
 			bool escaped = false;
 			int valueStart = startIndex + 1;
@@ -116,16 +112,13 @@ namespace Software10101.Serialization.Json {
 					if (currentChar == '\\') {
 						escaped = true;
 					} else if (currentChar == '"') {
-						int newEndIndex;
-						value = DoDeserializeString(input, endIndex, out newEndIndex);
+						value = DoDeserializeString(input, endIndex, out var newEndIndex);
 						endIndex = newEndIndex;
 					} else if (currentChar == '{') {
-						int newEndIndex;
-						value = DoDeserializeMap(input, endIndex, out newEndIndex);
+						value = DoDeserializeMap(input, endIndex, out var newEndIndex);
 						endIndex = newEndIndex;
 					} else if (currentChar == '[') {
-						int newEndIndex;
-						value = DoDeserializeList(input, endIndex, out newEndIndex);
+						value = DoDeserializeList(input, endIndex, out var newEndIndex);
 						endIndex = newEndIndex;
 					} else if (currentChar == ',') {
 						if (value == null) {
@@ -173,7 +166,6 @@ namespace Software10101.Serialization.Json {
 
 						string substring = input.Substring(startIndex + 1, endIndex - startIndex - 1);
 
-						escaped = false;
 						foreach (char c in substring) {
 							if (escaped) {
 								escaped = false;
@@ -213,14 +205,21 @@ namespace Software10101.Serialization.Json {
 			throw new Exception("Something went wrong while deserializing:\n" + input);
 		}
 
-		public static string Serialize<K, V> (IDictionary<K, V> input) {
+		// ReSharper disable once UnusedMember.Global
+		// ReSharper disable once MemberCanBePrivate.Global
+		public static string Serialize<TK, TV> (IDictionary<TK, TV> input) {
 			IDictionary<string, object> tmp = new Dictionary<string, object>();
 
-			input.ForEach(entry => { tmp[entry.Key.ToString()] = entry.Value; });
+			input.ForEach(entry => {
+				var (key, value) = entry;
+				tmp[key.ToString()] = value;
+			});
 
             return Serialize((IDictionary)tmp);
 		}
 
+		// ReSharper disable once UnusedMember.Global
+		// ReSharper disable once MemberCanBePrivate.Global
 		public static string Serialize (IDictionary input) {
 			return DoSerializeMap(input);
 		}
@@ -238,20 +237,19 @@ namespace Software10101.Serialization.Json {
 				return "false";
 			}
 
-			string s = input as string;
-			if (s != null) {
+			if (input is string s) {
 				return DoSerializeString(s);
 			}
 
-			Object l = input as IList;
+			object l = input as IList;
 			if (l != null) {
-				return DoSerializeList(input as IList);
+				return DoSerializeList((IList)input);
 			}
 
-            Object m2 = input as IDictionary;
+            object m2 = input as IDictionary;
             if (m2 != null)
             {
-                return DoSerializeMap(m2 as IDictionary);
+                return DoSerializeMap((IDictionary)m2);
             }
 
             try {
@@ -268,7 +266,7 @@ namespace Software10101.Serialization.Json {
 
             ICollection keys = input.Keys;
 
-            foreach (Object key in keys) {
+            foreach (object key in keys) {
                 output.Add(DoSerializeString(key.ToString()) + ":" + DoSerialize(input[key]));
             }
 
@@ -278,8 +276,8 @@ namespace Software10101.Serialization.Json {
         private static string DoSerializeList (IList input) {
 			StringJoiner output = new StringJoiner(",", "[", "]");
 
-			for (int i = 0; i < input.Count; i++) {
-				output.Add(DoSerialize(input[i]));
+			foreach (object element in input) {
+				output.Add(DoSerialize(element));
 			}
 
 			return output.ToString();
