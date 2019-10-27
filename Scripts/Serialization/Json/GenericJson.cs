@@ -208,14 +208,27 @@ namespace Software10101.Serialization.Json {
 		// ReSharper disable once UnusedMember.Global
 		// ReSharper disable once MemberCanBePrivate.Global
 		public static string Serialize<TK, TV> (IDictionary<TK, TV> input) {
-			IDictionary<string, object> tmp = new Dictionary<string, object>();
+			IDictionary tmp = new Dictionary<string, object>();
 
 			input.ForEach(entry => {
 				var (key, value) = entry;
 				tmp[key.ToString()] = value;
 			});
 
-            return Serialize((IDictionary)tmp);
+            return Serialize(tmp);
+		}
+
+		// ReSharper disable once UnusedMember.Global
+		// ReSharper disable once MemberCanBePrivate.Global
+		public static string Serialize(JsonDictionary input) {
+			IDictionary tmp = new Dictionary<string, object>();
+
+			input.ForEach(entry => {
+				var (key, value) = entry;
+				tmp[key] = value;
+			});
+
+            return Serialize(tmp);
 		}
 
 		// ReSharper disable once UnusedMember.Global

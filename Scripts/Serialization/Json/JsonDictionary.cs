@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Software10101.Serialization.Json {
@@ -12,8 +13,10 @@ namespace Software10101.Serialization.Json {
 
         public bool TryGetValue<T>(string key, out T element) {
             if (base.TryGetValue(key, out object obj)) {
-                element = (T)obj;
-                return true;
+                try {
+                    element = (T)obj;
+                    return true;
+                } catch (InvalidCastException) { }
             }
 
             element = default;

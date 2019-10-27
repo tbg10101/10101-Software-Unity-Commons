@@ -2,7 +2,8 @@
     "name": "10101Software.Commons.Serialization.Json",
     "references": [
         "GUID:05fe0759bcce5e84a8a352ff8bb85b3a",
-        "GUID:1c3647b4da9f81343bd2a5b2a2f7b6e2"
+        "GUID:1c3647b4da9f81343bd2a5b2a2f7b6e2",
+        "GUID:23b5bf86ff876e842a762190ca82a0b8"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
