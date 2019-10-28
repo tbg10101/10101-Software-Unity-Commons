@@ -14,12 +14,12 @@ namespace Software10101.Serialization.Json {
         }
 
         public static bool TryParse(this JsonDictionary input, out Vector2 v) {
-            if (!input.TryGetValue("x", out float x) || !input.TryGetValue("y", out float y)) {
+            if (!input.TryGetValue("x", out double x) || !input.TryGetValue("y", out double y)) {
                 v = default;
                 return false;
             }
 
-            v = new Vector2(x, y);
+            v = new Vector2((float)x, (float)y);
             return true;
         }
 
@@ -32,12 +32,12 @@ namespace Software10101.Serialization.Json {
         }
 
         public static bool TryParse(this JsonDictionary input, out Vector3 v) {
-            if (!input.TryGetValue("x", out float x) || !input.TryGetValue("y", out float y) || !input.TryGetValue("z", out float z)) {
+            if (!input.TryGetValue("x", out double x) || !input.TryGetValue("y", out double y) || !input.TryGetValue("z", out double z)) {
                 v = default;
                 return false;
             }
 
-            v = new Vector3(x, y, z);
+            v = new Vector3((float)x, (float)y, (float)z);
             return true;
         }
     }
