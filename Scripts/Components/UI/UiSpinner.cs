@@ -6,7 +6,7 @@ namespace Software10101.Components.UI {
     [ExecuteAlways]
     public class UiSpinner : MonoBehaviour {
         public Color Color;
-        public Image[] Petals;
+        public Graphic[] Petals;
 
         public float Speed = 360.0f;
 
