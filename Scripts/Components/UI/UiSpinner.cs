@@ -13,7 +13,7 @@ namespace Software10101.Components.UI {
         private float _preciseAngle = 0.0f;
 
         private void Update() {
-            _preciseAngle -= Speed * Time.unscaledDeltaTime;
+            _preciseAngle += Speed * Time.unscaledDeltaTime;
 
             while (_preciseAngle >= 360.0f) {
                 _preciseAngle -= 360.0f;
@@ -25,7 +25,7 @@ namespace Software10101.Components.UI {
 
             int petalCount = Petals.Length;
             int petalIndex = Mathf.FloorToInt(_preciseAngle / 360.0f * petalCount);
-            float opacity = 1.0f;
+            float opacity = 0.1f;
             float opacityIncrement = 0.9f / petalCount;
 
             for (int i = 0; i < petalCount; i++) {
@@ -36,10 +36,10 @@ namespace Software10101.Components.UI {
                 try {
                     Petals[petalIndex].color = new Color(Color.r, Color.g, Color.b, opacity * Color.a);
                 } catch (IndexOutOfRangeException) {
-                    Debug.LogError("Petal Index: " + petalIndex);
+                    Debug.LogError("Petal index out of range: " + petalIndex);
                 }
 
-                opacity -= opacityIncrement;
+                opacity += opacityIncrement;
                 petalIndex++;
             }
         }
