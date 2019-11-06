@@ -21,6 +21,10 @@ namespace Software10101.Components.UI {
         }
 
         private void LateUpdate() {
+            ApplyPosition();
+        }
+
+        public void ApplyPosition() {
             if (!Anchor) {
                 return;
             }
@@ -30,16 +34,12 @@ namespace Software10101.Components.UI {
             }
 
             if (CameraSpace) {
-                RectTransform canvasRectTransform = (RectTransform)_canvas.transform;
-
-                Vector2 canvasSize = canvasRectTransform.sizeDelta;
+                Vector2 canvasSize = ((RectTransform)_canvas.transform).sizeDelta;
                 Vector2 canvasOffset = canvasSize / 2.0f;
                 Vector2 viewportPoint = Camera.WorldToViewportPoint(Anchor.position + WorldOffset);
-                Vector2 screenPointNew = Vector2.Scale(viewportPoint, canvasSize) + UiOffset - canvasOffset;
+                Vector2 canvasPoint = Vector2.Scale(viewportPoint, canvasSize) + UiOffset - canvasOffset;
 
-                Vector3 pos = new Vector3(screenPointNew.x, screenPointNew.y);
-
-                transform.localPosition = pos;
+                transform.localPosition = canvasPoint;
             } else {
                 transform.position = RectTransformUtility.WorldToScreenPoint(Camera, Anchor.position + WorldOffset) + UiOffset;
             }
