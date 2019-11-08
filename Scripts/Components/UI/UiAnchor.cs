@@ -31,7 +31,7 @@ namespace Software10101.Components.UI {
                 return;
             }
 
-            if (_canvas.renderMode != RenderMode.WorldSpace) {
+            if (_canvas.renderMode != RenderMode.ScreenSpaceOverlay) {
                 Vector2 canvasSize = ((RectTransform)_canvas.transform).sizeDelta;
                 Vector2 canvasOffset = canvasSize / 2.0f;
                 Vector2 viewportPoint = _canvas.worldCamera.WorldToViewportPoint(Anchor.position + WorldOffset);
