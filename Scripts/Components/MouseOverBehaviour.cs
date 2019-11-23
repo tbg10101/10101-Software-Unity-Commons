@@ -11,7 +11,8 @@ namespace Software10101.Components {
 
         protected virtual void OnMouseOver() {
             _mouseOver = true;
-            IsMouseOver = _mouseOver && !EventSystem.current.IsPointerOverGameObject();
+            bool mouseOverUi = EventSystem.current.IsPointerOverGameObject();
+            IsMouseOver = _mouseOver && !mouseOverUi;
 
             if (_previousIsMouseOver && !IsMouseOver) {
                 ObjectCurrentlyUnderCursorWithoutUi = null;
