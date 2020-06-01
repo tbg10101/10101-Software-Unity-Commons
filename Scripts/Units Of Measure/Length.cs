@@ -1,141 +1,144 @@
 ﻿namespace Software10101.Units {
-	public struct Length {
-		private const string UNIT = "m";
+    public readonly struct Length {
+        private const string Unit = "m";
 
-		public static readonly Length ZERO_LENGTH =                   0.0;     // km
-		public static readonly Length CENTIMETER =                    0.00001; // km
-		public static readonly Length METER =                         0.001;   // km
-		public static readonly Length KILOMETER =                     1.0;     // km
-		public static readonly Length EARTH_RADIUS =               6371.0;     // km
-		public static readonly Length SOLAR_RADIUS =             695700.0;     // km
-		public static readonly Length ASTRONOMICAL_UNIT =     149597870.7;     // km
-		public static readonly Length LIGHT_YEAR =        9460730472580.8;     // km
-		public static readonly Length MAX_LENGTH = double.MaxValue;
+        public static readonly Length ZeroLength       = 0.0;
+        public static readonly Length Centimeter       = 0.00001;
+        public static readonly Length Meter            =  0.001;
+        public static readonly Length Kilometer        = 1.0;
+        public static readonly Length EarthRadius      = 6371.0;
+        public static readonly Length SolarRadius      = 695700.0;
+        public static readonly Length AstronomicalUnit = 149597870.7;
+        public static readonly Length LightYear        = 9460730472580.8;
+        public static readonly Length MaxLength        = double.MaxValue;
 
-		private readonly double kilometers;
+        private readonly double _kilometers;
 
-		/////////////////////////////////////////////////////////////////////////////
-		// BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		private Length (double km) {
-			kilometers = km;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public Length(double km) {
+            _kilometers = km;
+        }
 
-		private Length (double l, Length unit) {
-			kilometers = l * unit;
-		}
+        public Length(double l, Length unit) {
+            _kilometers = l * unit;
+        }
 
-		public static Length From (double km) {
-			return new Length(km);
-		}
+        public static Length From(double km) {
+            return new Length(km);
+        }
 
-		public static Length From (double l, Length unit) {
-			return new Length(l, unit);
-		}
+        public static Length From(double l, Length unit) {
+            return new Length(l, unit);
+        }
 
-		public static implicit operator Length (double km) {
-			return From(km);
-		}
+        public static implicit operator Length(double km) {
+            return From(km);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// UN-BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public double To (Length unit) {
-			return kilometers / unit.kilometers;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // UN-BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public double To(Length unit) {
+            return _kilometers / unit._kilometers;
+        }
 
-		public static implicit operator double (Length l) {
-			return l.kilometers;
-		}
+        public static implicit operator double(Length l) {
+            return l._kilometers;
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// OPERATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Length operator + (Length first, Length second) {
-			return first.kilometers + second.kilometers;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // OPERATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Length operator +(Length first, Length second) {
+            return first._kilometers + second._kilometers;
+        }
 
-		public static Length operator + (Length first, double second) {
-			return first.kilometers + second;
-		}
+        public static Length operator +(Length first, double second) {
+            return first._kilometers + second;
+        }
 
-		public static Length operator + (double first, Length second) {
-			return first + second.kilometers;
-		}
+        public static Length operator +(double first, Length second) {
+            return first + second._kilometers;
+        }
 
-		public static Length operator - (Length first, Length second) {
-			return first.kilometers - second.kilometers;
-		}
+        public static Length operator -(Length first, Length second) {
+            return first._kilometers - second._kilometers;
+        }
 
-		public static Length operator - (Length first, double second) {
-			return first.kilometers - second;
-		}
+        public static Length operator -(Length first, double second) {
+            return first._kilometers - second;
+        }
 
-		public static Length operator - (double first, Length second) {
-			return first - second.kilometers;
-		}
+        public static Length operator -(double first, Length second) {
+            return first - second._kilometers;
+        }
 
-		public static Length operator * (Length first, double second) {
-			return first.kilometers * second;
-		}
+        public static Length operator *(Length first, double second) {
+            return first._kilometers * second;
+        }
 
-		public static Length operator * (double first, Length second) {
-			return first * second.kilometers;
-		}
+        public static Length operator *(double first, Length second) {
+            return first * second._kilometers;
+        }
 
-		public static double operator / (Length first, Length second) {
-			return first.kilometers / second.kilometers;
-		}
+        public static double operator /(Length first, Length second) {
+            return first._kilometers / second._kilometers;
+        }
 
-		public static Length operator / (Length first, double second) {
-			return first.kilometers / second;
-		}
+        public static Length operator /(Length first, double second) {
+            return first._kilometers / second;
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// MUTATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Area operator * (Length first, Length second) {
-			return first.kilometers * second.kilometers;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // MUTATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Area operator *(Length first, Length second) {
+            return new Area(
+                first.To(Kilometer) * second.To(Kilometer),
+                Area.SquareKilometer);
+        }
 
-		public static Volume operator * (Length first, Area second) {
-			return first.kilometers * second.To(Area.SQUARE_KILOMETER);
-		}
+        public static Volume operator *(Length length, Area area) {
+            return new Volume(
+                length.To(Kilometer) * area.To(Area.SquareKilometer),
+                Volume.CubicKilometer);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// TO STRING
-		/////////////////////////////////////////////////////////////////////////////
-		override
-		public string ToString () {
-			return SI.ToLargestSiString(kilometers, UNIT, 2, 3, 0);
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // TO STRING
+        /////////////////////////////////////////////////////////////////////////////
+        public override string ToString() {
+            return Si.ToLargestSiString(_kilometers, Unit, 2, 3, 0);
+        }
 
-		public string ToStringCentimeters () {
-			return string.Format("{0:F2}{1}{2}", To(CENTIMETER), "c", UNIT);
-		}
+        public string ToStringCentimeters() {
+            return $"{To(Centimeter):F2}c{Unit}";
+        }
 
-		public string ToStringMeters () {
-			return SI.ToLargestSiString(kilometers, UNIT, 2, 3, 0, 0);
-		}
+        public string ToStringMeters() {
+            return Si.ToLargestSiString(_kilometers, Unit, 2, 3, 0, 0);
+        }
 
-		public string ToStringKilometers () {
-			return SI.ToLargestSiString(kilometers, UNIT, 2, 3, 3, 3);
-		}
+        public string ToStringKilometers() {
+            return Si.ToLargestSiString(_kilometers, Unit, 2, 3, 3, 3);
+        }
 
-		public string ToStringEarthRadii () {
-			return string.Format("{0:F2}{1}", To(EARTH_RADIUS), "R⊕");
-		}
+        public string ToStringEarthRadii() {
+            return $"{To(EarthRadius):F2}R⊕";
+        }
 
-		public string ToStringSolarRadii () {
-			return string.Format("{0:F2}{1}", To(SOLAR_RADIUS), "R☉");
-		}
+        public string ToStringSolarRadii() {
+            return $"{To(SolarRadius):F2}R☉";
+        }
 
-		public string ToStringAstronomicalUnits () {
-			return string.Format("{0:F2}{1}", To(ASTRONOMICAL_UNIT), "au");
-		}
+        public string ToStringAstronomicalUnits() {
+            return $"{To(AstronomicalUnit):F2}au";
+        }
 
-		public string ToStringLightYears () {
-			return string.Format("{0:F2}{1}", To(LIGHT_YEAR), "ly");
-		}
-	}
+        public string ToStringLightYears() {
+            return $"{To(LightYear):F2}ly";
+        }
+    }
 }

@@ -9,7 +9,7 @@
 		/// <typeparam name="T">The type of the objects in the list.</typeparam>
 		/// <param name="o">The sole object to be stored in the returned list.</param>
 		/// <returns>A list containing only the specified object.</returns>
-		public static List<T> SingletonList<T> (T o) {
+		public static List<T> SingletonList<T>(T o) {
 			return new List<T> { o };
 		}
 
@@ -22,7 +22,7 @@
 		/// </summary>
 		/// <typeparam name="T">The type of the objects in the list.</typeparam>
 		/// <returns>An empty list.</returns>
-		public static List<T> EmptyList<T> () {
+		public static List<T> EmptyList<T>() {
 			return new List<T>();
 		}
 
@@ -30,7 +30,7 @@
 		/// Performs each <see cref="Action"/> delegate in the <see cref="IEnumerable"/>.
 		/// </summary>
 		/// <param name="collection">The <see cref="IEnumerable"/> to be iterated over.</param>
-		public static void InvokeEach (this IEnumerable<Action> collection) {
+		public static void InvokeEach(this IEnumerable<Action> collection) {
 			foreach (Action action in collection) {
 				action.Invoke();
 			}
@@ -42,7 +42,7 @@
 		/// <typeparam name="T">The type of the objects in the <see cref="IEnumerable"/>.</typeparam>
 		/// <param name="collection">The <see cref="IEnumerable"/> to be iterated over.</param>
 		/// <param name="param">The parameter to provide to each <see cref="Action{T1}"/> delegate.</param>
-		public static void InvokeEach<T> (this IEnumerable<Action<T>> collection, T param) {
+		public static void InvokeEach<T>(this IEnumerable<Action<T>> collection, T param) {
 			foreach (Action<T> action in collection) {
 				action.Invoke(param);
 			}
@@ -54,7 +54,7 @@
 		/// <typeparam name="T">The type of the objects in the <see cref="IEnumerable"/>.</typeparam>
 		/// <param name="sequence">The <see cref="IEnumerable"/> to be iterated over.</param>
 		/// <param name="action">The <see cref="Action{T1}"/> delegate to perform on each element of the <see cref="IEnumerable"/>.</param>
-		public static void ForEach<T> (this IEnumerable<T> sequence, Action<T> action) {
+		public static void ForEach<T>(this IEnumerable<T> sequence, Action<T> action) {
 			if (sequence == null) {
 				return;
 			}
@@ -71,7 +71,7 @@
 		/// <typeparam name="TValue">The type of the values in the <see cref="IEnumerable"/>.</typeparam>
 		/// <param name="sequence">The <see cref="IEnumerable"/> to be iterated over.</param>
 		/// <param name="action">The <see cref="Action{T1, T2}"/> delegate to perform on each element of the <see cref="IEnumerable"/>.</param>
-		public static void ForEach<TKey, TValue> (this IEnumerable<KeyValuePair<TKey, TValue>> sequence, Action<TKey, TValue> action) {
+		public static void ForEach<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> sequence, Action<TKey, TValue> action) {
 			foreach (KeyValuePair<TKey, TValue> item in sequence) {
 				action.Invoke(item.Key, item.Value);
 			}
@@ -86,7 +86,7 @@
 		/// <param name="sequence">The <see cref="IEnumerable"/> to be iterated over.</param>
 		/// <param name="action">The <see cref="Func{T, TResult}"/> delegate to perform on each element of the <see cref="IEnumerable"/> which maps
 		/// from T to R.</param>
-		public static IEnumerable<TResult> Map<T, TResult> (this IEnumerable<T> sequence, Func<T, TResult> action) {
+		public static IEnumerable<TResult> Map<T, TResult>(this IEnumerable<T> sequence, Func<T, TResult> action) {
 			IList<TResult> output = new List<TResult>();
 
 			foreach (T item in sequence) {
@@ -115,11 +115,11 @@
             return output;
         }
 
-        public static T[] ToArray<T> (params T[] array) {
+        public static T[] ToArray<T>(params T[] array) {
 			return array;
 		}
 
-		public static bool Equals (IEnumerable a, IEnumerable b) {
+		public static bool Equals(IEnumerable a, IEnumerable b) {
 			IEnumerator aEnumerator = a.GetEnumerator();
 			IEnumerator bEnumerator = b.GetEnumerator();
 
@@ -139,18 +139,18 @@
 			}
 		}
 
-		public static void AddAll<K, V> (this IDictionary<K, V> me, IDictionary<K, V> other) {
+		public static void AddAll<K, V>(this IDictionary<K, V> me, IDictionary<K, V> other) {
 			other.ForEach(
 				entry => {
 					me[entry.Key] = entry.Value;
 				});
 		}
 
-        public static void AddAll<T> (this IList<T> me, IEnumerable<T> other) {
+        public static void AddAll<T>(this IList<T> me, IEnumerable<T> other) {
             other.ForEach(me.Add);
         }
 
-        public static IDictionary<K, V> Clone<K, V> (this IDictionary<K, V> me) {
+        public static IDictionary<K, V> Clone<K, V>(this IDictionary<K, V> me) {
             IDictionary<K, V> result = new Dictionary<K, V>();
 
             me.ForEach(

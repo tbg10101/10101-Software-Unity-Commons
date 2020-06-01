@@ -1,117 +1,116 @@
 ﻿namespace Software10101.Units {
-	public struct Temperature {
-		private const string UNIT = "K";
-		
-		public static Temperature ABSOLUTE_ZERO =   0.0;  // K
-		public static Temperature FREEZING =      273.15; // K
-		public static Temperature BOILING =       373.15; // K
-		public static Temperature MAX_TEMPERATURE = double.MaxValue;
+    public readonly struct Temperature {
+        private const string Unit = "K";
 
-		private readonly double kelvin;
+        public static Temperature AbsoluteZero   = 0.0;
+        public static Temperature Freezing       = 273.15;
+        public static Temperature Boiling        = 373.15;
+        public static Temperature MaxTemperature = double.MaxValue;
 
-		/////////////////////////////////////////////////////////////////////////////
-		// BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public Temperature (double k) {
-			kelvin = k;
-		}
+        private readonly double _kelvin;
 
-		public static Temperature FromKelvin (double k) {
-			return new Temperature(k);
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public Temperature(double k) {
+            _kelvin = k;
+        }
 
-		public static Temperature FromCelsius (double c) {
-			return new Temperature(c + 273.15);
-		}
+        public static Temperature FromKelvin(double k) {
+            return new Temperature(k);
+        }
 
-		public static Temperature FromFahrenheit (double f) {
-			return new Temperature((f + 459.67) * (5.0 / 9.0));
-		}
+        public static Temperature FromCelsius(double c) {
+            return new Temperature(c + 273.15);
+        }
 
-		public static implicit operator Temperature (double k) {
-			return FromKelvin(k);
-		}
+        public static Temperature FromFahrenheit(double f) {
+            return new Temperature((f + 459.67) * (5.0 / 9.0));
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// UN-BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public double ToKelvin () {
-			return kelvin;
-		}
+        public static implicit operator Temperature(double k) {
+            return FromKelvin(k);
+        }
 
-		public double ToCelsius () {
-			return kelvin - 273.15;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // UN-BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public double ToKelvin() {
+            return _kelvin;
+        }
 
-		public double ToFahrenheit () {
-			return kelvin * (9.0 / 5.0) - 459.67;
-		}
+        public double ToCelsius() {
+            return _kelvin - 273.15;
+        }
 
-		public static implicit operator double (Temperature t) {
-			return t.ToKelvin();
-		}
+        public double ToFahrenheit() {
+            return _kelvin * (9.0 / 5.0) - 459.67;
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// OPERATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Temperature operator + (Temperature first, Temperature second) {
-			return first.kelvin + second.kelvin;
-		}
+        public static implicit operator double(Temperature t) {
+            return t.ToKelvin();
+        }
 
-		public static Temperature operator + (Temperature first, double second) {
-			return first.kelvin + second;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // OPERATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Temperature operator +(Temperature first, Temperature second) {
+            return first._kelvin + second._kelvin;
+        }
 
-		public static Temperature operator + (double first, Temperature second) {
-			return first + second.kelvin;
-		}
+        public static Temperature operator +(Temperature first, double second) {
+            return first._kelvin + second;
+        }
 
-		public static Temperature operator - (Temperature first, Temperature second) {
-			return first.kelvin - second.kelvin;
-		}
+        public static Temperature operator +(double first, Temperature second) {
+            return first + second._kelvin;
+        }
 
-		public static Temperature operator - (Temperature first, double second) {
-			return first.kelvin - second;
-		}
+        public static Temperature operator -(Temperature first, Temperature second) {
+            return first._kelvin - second._kelvin;
+        }
 
-		public static Temperature operator - (double first, Temperature second) {
-			return first - second.kelvin;
-		}
+        public static Temperature operator -(Temperature first, double second) {
+            return first._kelvin - second;
+        }
 
-		public static Temperature operator * (Temperature first, double second) {
-			return first.kelvin * second;
-		}
+        public static Temperature operator -(double first, Temperature second) {
+            return first - second._kelvin;
+        }
 
-		public static Temperature operator * (double first, Temperature second) {
-			return first * second.kelvin;
-		}
+        public static Temperature operator *(Temperature first, double second) {
+            return first._kelvin * second;
+        }
 
-		public static Temperature operator / (Temperature first, double second) {
-			return first.kelvin / second;
-		}
+        public static Temperature operator *(double first, Temperature second) {
+            return first * second._kelvin;
+        }
 
-		public static double operator / (Temperature first, Temperature second) {
-			return first.kelvin / second.kelvin;
-		}
+        public static Temperature operator /(Temperature first, double second) {
+            return first._kelvin / second;
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// TO STRING
-		/////////////////////////////////////////////////////////////////////////////
-		override
-		public string ToString () {
-			return ToStringKelvin();
-		}
+        public static double operator /(Temperature first, Temperature second) {
+            return first._kelvin / second._kelvin;
+        }
 
-		public string ToStringKelvin () {
-			return string.Format("{0:F2}{1}", ToKelvin(), UNIT);
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // TO STRING
+        /////////////////////////////////////////////////////////////////////////////
+        public override string ToString() {
+            return ToStringKelvin();
+        }
 
-		public string ToStringCelsius () {
-			return string.Format("{0:F2}{1}", ToCelsius(), "°C");
-		}
+        public string ToStringKelvin() {
+            return $"{ToKelvin():F2}{Unit}";
+        }
 
-		public string ToStringFahrenheit () {
-			return string.Format("{0:F2}{1}", ToFahrenheit(), "°F");
-		}
-	}
+        public string ToStringCelsius() {
+            return $"{ToCelsius():F2}°C";
+        }
+
+        public string ToStringFahrenheit() {
+            return $"{ToFahrenheit():F2}°F";
+        }
+    }
 }

@@ -1,115 +1,129 @@
 ﻿namespace Software10101.Units {
-	public struct Speed {
-		private const string UNIT = "m/s";
-		
-		public static readonly Speed ZERO_SPEED       = 0.0; // m/s
-		public static readonly Speed METER_PER_SECOND = 1.0; // m/s
-		public static readonly Speed C =        299792458.0; // m/s
-		public static readonly Speed MAX_SPEED = double.MaxValue;
+    public readonly struct Speed {
+        private const string Unit = "m/s";
 
-		public Length length;
-		public Duration duration;
+        public static readonly Speed ZeroSpeed      = 0.0;
+        public static readonly Speed MeterPerSecond = 1.0;
+        public static readonly Speed C              = 299792458.0;
+        public static readonly Speed MaxSpeed       = double.MaxValue;
 
-		/////////////////////////////////////////////////////////////////////////////
-		// BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public Speed (double s) {
-			length = Length.From(s, Length.METER);
-			duration = Duration.SECOND;
-		}
+        private readonly Length _length;
+        private readonly Duration _duration;
 
-		public Speed (Length l, Duration d) {
-			length = l;
-			duration = d;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public Speed(double s) {
+            _length = Length.From(s, Length.Meter);
+            _duration = Duration.Second;
+        }
 
-		public static Speed From (double s) {
-			return new Speed(s);
-		}
+        public Speed(Length l, Duration d) {
+            _length = l;
+            _duration = d;
+        }
 
-		public static Speed From (Length l, Duration d) {
-			return new Speed(l, d);
-		}
+        public Speed(double s, Speed unit) {
+            _length = s * unit._length;
+            _duration = unit._duration;
+        }
 
-		public static implicit operator Speed (double s) {
-			return From(s);
-		}
+        public static Speed From(double s) {
+            return new Speed(s);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// UN-BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public double To (Length lUnit, Duration dUnit) {
-			return length.To(lUnit) / duration.To(dUnit);
-		}
+        public static Speed From(Length l, Duration d) {
+            return new Speed(l, d);
+        }
 
-		public static implicit operator double (Speed s) {
-			return s.length.To(Length.METER) / s.duration.To(Duration.SECOND);
-		}
+        public static Speed From(double s, Speed unit) {
+            return new Speed(s, unit);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// OPERATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Speed operator + (Speed first, Speed second) {
-			return first.To(Length.METER, Duration.SECOND) + second.To(Length.METER, Duration.SECOND);
-		}
+        public static implicit operator Speed(double s) {
+            return From(s);
+        }
 
-		public static Speed operator + (Speed first, double second) {
-			return first.To(Length.METER, Duration.SECOND) + second;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // UN-BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public double To(Speed unit) {
+            return _length.To(unit._length) / _duration.To(unit._duration);
+        }
 
-		public static Speed operator + (double first, Speed second) {
-			return first + second.To(Length.METER, Duration.SECOND);
-		}
+        public double To(Length lUnit, Duration dUnit) {
+            return _length.To(lUnit) / _duration.To(dUnit);
+        }
 
-		public static Speed operator - (Speed first, Speed second) {
-			return first.To(Length.METER, Duration.SECOND) - second.To(Length.METER, Duration.SECOND);
-		}
+        public static implicit operator double(Speed s) {
+            return s._length.To(Length.Meter) / s._duration.To(Duration.Second);
+        }
 
-		public static Speed operator - (Speed first, double second) {
-			return first.To(Length.METER, Duration.SECOND) - second;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // OPERATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Speed operator +(Speed first, Speed second) {
+            return first.To(MeterPerSecond) + second.To(MeterPerSecond);
+        }
 
-		public static Speed operator - (double first, Speed second) {
-			return first - second.To(Length.METER, Duration.SECOND);
-		}
+        public static Speed operator +(Speed first, double second) {
+            return first.To(MeterPerSecond) + second;
+        }
 
-		public static Speed operator * (Speed first, double second) {
-			return first.To(Length.METER, Duration.SECOND) * second;
-		}
+        public static Speed operator +(double first, Speed second) {
+            return first + second.To(MeterPerSecond);
+        }
 
-		public static Speed operator * (double first, Speed second) {
-			return first * second.To(Length.METER, Duration.SECOND);
-		}
+        public static Speed operator -(Speed first, Speed second) {
+            return first.To(MeterPerSecond) - second.To(MeterPerSecond);
+        }
 
-		public static double operator / (Speed first, Speed second) {
-			return first.To(Length.METER, Duration.SECOND) / second.To(Length.METER, Duration.SECOND);
-		}
+        public static Speed operator -(Speed first, double second) {
+            return first.To(MeterPerSecond) - second;
+        }
 
-		public static Speed operator / (Speed first, double second) {
-			return first.To(Length.METER, Duration.SECOND) / second;
-		}
+        public static Speed operator -(double first, Speed second) {
+            return first - second.To(MeterPerSecond);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// MUTATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Length operator * (Speed speed, Duration duration) {
-			return speed.length * (duration / speed.duration);
-		}
+        public static Speed operator *(Speed first, double second) {
+            return first.To(MeterPerSecond) * second;
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// TO STRING
-		/////////////////////////////////////////////////////////////////////////////
-		override
-		public string ToString () {
-			return ToStringMetersPerSecond();
-		}
+        public static Speed operator *(double first, Speed second) {
+            return first * second.To(MeterPerSecond);
+        }
 
-		public string ToStringMetersPerSecond () {
-			return string.Format("{0:F2}{1}", To(Length.METER, Duration.SECOND), UNIT);
-		}
+        public static double operator /(Speed first, Speed second) {
+            return first.To(MeterPerSecond) / second.To(MeterPerSecond);
+        }
 
-		public string ToStringKilometersPerHour () {
-			return string.Format("{0:F2}{1}", To(Length.KILOMETER, Duration.HOUR), "km/h");
-		}
-	}
+        public static Speed operator /(Speed first, double second) {
+            return first.To(MeterPerSecond) / second;
+        }
+
+        /////////////////////////////////////////////////////////////////////////////
+        // MUTATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Length operator *(Speed speed, Duration duration) {
+            return new Length(
+                speed.To(MeterPerSecond) * duration.To(Duration.Second),
+                Length.Meter);
+        }
+
+        /////////////////////////////////////////////////////////////////////////////
+        // TO STRING
+        /////////////////////////////////////////////////////////////////////////////
+        public override string ToString() {
+            return ToStringMetersPerSecond();
+        }
+
+        public string ToStringMetersPerSecond() {
+            return $"{To(MeterPerSecond):F2}{Unit}";
+        }
+
+        public string ToStringKilometersPerHour() {
+            return $"{To(Length.Kilometer, Duration.Hour):F2}km/h";
+        }
+    }
 }

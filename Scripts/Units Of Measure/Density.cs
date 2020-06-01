@@ -1,94 +1,109 @@
 ﻿namespace Software10101.Units {
-	public struct Density {
-		private const string UNIT = "g/cm³";
-		
-		public static readonly Density ZERO_DENSITY = 0.0; // g/cm³
-		public static readonly Density WATER =        1.0; // g/cm³
-		public static readonly Density MAX_DENSITY = double.MaxValue;
+    public readonly struct Density {
+        private const string Unit = "g/cm³";
 
-		public readonly Mass mass;
-		public readonly Volume volume;
+        public static readonly Density ZeroDensity            = 0.0;
+        public static readonly Density Water                  = 1.0;
+        public static readonly Density GramPerCentimeterCubed = 1.0;
+        public static readonly Density MaxDensity             = double.MaxValue;
 
-		/////////////////////////////////////////////////////////////////////////////
-		// BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public Density (double d) {
-			mass = Mass.From(d, Mass.GRAM);
-			volume = Volume.CUBIC_CENTIMETER;
-		}
+        private readonly Mass _mass;
+        private readonly Volume _volume;
 
-		public Density (Mass m, Volume v) {
-			mass = m;
-			volume = v;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public Density(double d) {
+            _mass = Mass.From(d, Mass.Gram);
+            _volume = Volume.CubicCentimeter;
+        }
 
-		public static Density From (double p) {
-			return new Density(p);
-		}
+        public Density(Mass m, Volume v) {
+            _mass = m;
+            _volume = v;
+        }
 
-		public static Density From (Mass m, Volume v) {
-			return new Density(m, v);
-		}
+        public Density(double d, Density unit) {
+            _mass = d * unit._mass;
+            _volume = unit._volume;
+        }
 
-		public static implicit operator Density (double p) {
-			return From(p);
-		}
+        public static Density From(double p) {
+            return new Density(p);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// UN-BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public double To (Mass mUnit, Volume vUnit) {
-			return mass.To(mUnit) / volume.To(vUnit);
-		}
+        public static Density From(Mass m, Volume v) {
+            return new Density(m, v);
+        }
 
-		public static implicit operator double (Density p) {
-			return p.mass.To(Mass.GRAM) / p.volume.To(Volume.CUBIC_CENTIMETER);
-		}
+        public static Density From(double d, Density unit) {
+            return new Density(d, unit);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// OPERATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Density operator * (Density first, double second) {
-			return new Density(first.mass * second, first.volume);
-		}
+        public static implicit operator Density(double p) {
+            return From(p);
+        }
 
-		public static Density operator * (double first, Density second) {
-			return new Density(second.mass * first, second.volume);
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // UN-BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public double To(Density unit) {
+            return _mass.To(unit._mass) / _volume.To(unit._volume);
+        }
 
-		public static double operator / (Density first, Density second) {
-			return first.To(Mass.GRAM, Volume.CUBIC_CENTIMETER) / second.To(Mass.GRAM, Volume.CUBIC_CENTIMETER);
-		}
+        public double To(Mass mUnit, Volume vUnit) {
+            return _mass.To(mUnit) / _volume.To(vUnit);
+        }
 
-		public static Density operator / (Density first, double second) {
-			return new Density(first.mass / second, first.volume);
-		}
+        public static implicit operator double(Density p) {
+            return p._mass.To(Mass.Gram) / p._volume.To(Volume.CubicCentimeter);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// MUTATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Mass operator * (Density density, Volume volume) {
-			return density.mass * (volume / density.volume);
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // OPERATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Density operator *(Density first, double second) {
+            return new Density(first._mass * second, first._volume);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// TO STRING
-		/////////////////////////////////////////////////////////////////////////////
-		override
-		public string ToString () {
-			return ToStringGramsPerCubicCentimeter();
-		}
+        public static Density operator *(double first, Density second) {
+            return new Density(second._mass * first, second._volume);
+        }
 
-		public string ToStringGramsPerCubicCentimeter () {
-			return string.Format("{0:F2}{1}", To(Mass.GRAM, Volume.CUBIC_CENTIMETER), UNIT);
-		}
+        public static double operator /(Density first, Density second) {
+            return first.To(Mass.Gram, Volume.CubicCentimeter) / second.To(Mass.Gram, Volume.CubicCentimeter);
+        }
 
-		public string ToStringKilogramsPerCubicKilometer () {
-			return string.Format("{0:F2}{1}", To(Mass.KILOGRAM, Volume.CUBIC_KILOMETER), "kg/km³");
-		}
+        public static Density operator /(Density first, double second) {
+            return new Density(first._mass / second, first._volume);
+        }
 
-		public string ToStringKilogramsPerCubicMeter () {
-			return string.Format("{0:F2}{1}", To(Mass.KILOGRAM, Volume.CUBIC_METER), "kg/m³");
-		}
-	}
+        /////////////////////////////////////////////////////////////////////////////
+        // MUTATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Mass operator *(Density density, Volume volume) {
+            return new Mass(
+                volume.To(Volume.CubicKilometer) * density.To(Mass.Kilogram, Volume.CubicKilometer),
+                Mass.Kilogram);
+        }
+
+        /////////////////////////////////////////////////////////////////////////////
+        // TO STRING
+        /////////////////////////////////////////////////////////////////////////////
+        public override string ToString () {
+            return ToStringGramsPerCubicCentimeter();
+        }
+
+        public string ToStringGramsPerCubicCentimeter() {
+            return $"{To(Mass.Gram, Volume.CubicCentimeter):F2}{Unit}";
+        }
+
+        public string ToStringKilogramsPerCubicKilometer() {
+            return $"{To(Mass.Kilogram, Volume.CubicKilometer):F2}kg/km³";
+        }
+
+        public string ToStringKilogramsPerCubicMeter() {
+            return $"{To(Mass.Kilogram, Volume.CubicMeter):F2}kg/m³";
+        }
+    }
 }

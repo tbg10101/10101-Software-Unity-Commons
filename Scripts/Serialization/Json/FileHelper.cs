@@ -105,8 +105,8 @@ namespace Software10101.Serialization.Json {
                         // try combining all the bytes, maybe it is json without the hash header
 
                         payloadString = (Encoding.UTF8.GetString(hashStringBytes)
-                                        + Encoding.UTF8.GetString(new []{(byte)separatorByte})
-                                        + stringBuilder).Trim();
+                                         + Encoding.UTF8.GetString(new []{(byte)separatorByte})
+                                         + stringBuilder).Trim();
                     }
 
                     if (payloadString[0] != '{' || payloadString[payloadString.Length - 1] != '}') {

@@ -26,9 +26,9 @@ namespace Software10101.Components {
         }
 
 #if UNITY_EDITOR
-    protected virtual void OnMouseEnter() {
-        // stubbed out for development, but don't want to pay performance cost when released
-    }
+        protected virtual void OnMouseEnter() {
+            // stubbed out for development, but don't want to pay performance cost when released
+        }
 #endif
 
         protected virtual void OnMouseEnterWithoutUi() { }

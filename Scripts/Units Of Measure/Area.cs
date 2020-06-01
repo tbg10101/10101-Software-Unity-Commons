@@ -1,111 +1,110 @@
 ﻿namespace Software10101.Units {
-	public struct Area {
-		private const string UNIT = "km²";
-		
-		public static readonly Area ZERO_AREA =        0.0; // km²
-		public static readonly Area SQUARE_KILOMETER = 1.0; // km²
-		public static readonly Area MAX_AREA = double.MaxValue;
+    public readonly struct Area {
+        private const string Unit = "km²";
 
-		private readonly double kmSquared;
+        public static readonly Area ZeroArea        = 0.0;
+        public static readonly Area SquareKilometer = 1.0;
+        public static readonly Area MaxArea         = double.MaxValue;
 
-		/////////////////////////////////////////////////////////////////////////////
-		// BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public Area (double a) {
-			kmSquared = a;
-		}
+        private readonly double _kmSquared;
 
-		public Area (double a, Area unit) {
-			kmSquared = a * unit.kmSquared;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public Area(double a) {
+            _kmSquared = a;
+        }
 
-		public static Area From (double a) {
-			return new Area(a);
-		}
+        public Area(double a, Area unit) {
+            _kmSquared = a * unit._kmSquared;
+        }
 
-		public static Area From (double a, Area unit) {
-			return new Area(a, unit);
-		}
+        public static Area From(double a) {
+            return new Area(a);
+        }
 
-		public static implicit operator Area (double a) {
-			return From(a);
-		}
+        public static Area From(double a, Area unit) {
+            return new Area(a, unit);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// UN-BOXING
-		/////////////////////////////////////////////////////////////////////////////
-		public double To (Area unit) {
-			return kmSquared / unit;
-		}
+        public static implicit operator Area(double a) {
+            return From(a);
+        }
 
-		public static implicit operator double (Area a) {
-			return a.kmSquared;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // UN-BOXING
+        /////////////////////////////////////////////////////////////////////////////
+        public double To(Area unit) {
+            return _kmSquared / unit;
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// OPERATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Area operator + (Area first, Area second) {
-			return first.kmSquared + second.kmSquared;
-		}
+        public static implicit operator double(Area a) {
+            return a._kmSquared;
+        }
 
-		public static Area operator + (Area first, double second) {
-			return first.kmSquared + second;
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // OPERATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Area operator +(Area first, Area second) {
+            return first._kmSquared + second._kmSquared;
+        }
 
-		public static Area operator + (double first, Area second) {
-			return first + second.kmSquared;
-		}
+        public static Area operator +(Area first, double second) {
+            return first._kmSquared + second;
+        }
 
-		public static Area operator - (Area first, Area second) {
-			return first.kmSquared - second.kmSquared;
-		}
+        public static Area operator +(double first, Area second) {
+            return first + second._kmSquared;
+        }
 
-		public static Area operator - (Area first, double second) {
-			return first.kmSquared - second;
-		}
+        public static Area operator -(Area first, Area second) {
+            return first._kmSquared - second._kmSquared;
+        }
 
-		public static Area operator - (double first, Area second) {
-			return first - second.kmSquared;
-		}
+        public static Area operator -(Area first, double second) {
+            return first._kmSquared - second;
+        }
 
-		public static Area operator * (Area first, double second) {
-			return first.kmSquared * second;
-		}
+        public static Area operator -(double first, Area second) {
+            return first - second._kmSquared;
+        }
 
-		public static Area operator * (double first, Area second) {
-			return first * second.kmSquared;
-		}
+        public static Area operator *(Area first, double second) {
+            return first._kmSquared * second;
+        }
 
-		public static double operator / (Area first, Area second) {
-			return first.kmSquared / second.kmSquared;
-		}
+        public static Area operator *(double first, Area second) {
+            return first * second._kmSquared;
+        }
 
-		public static Area operator / (Area first, double second) {
-			return first.kmSquared / second;
-		}
+        public static double operator /(Area first, Area second) {
+            return first._kmSquared / second._kmSquared;
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// MUTATORS
-		/////////////////////////////////////////////////////////////////////////////
-		public static Length operator / (Area area, Length length) {
-			return area.kmSquared / length.To(Length.KILOMETER);
-		}
+        public static Area operator /(Area first, double second) {
+            return first._kmSquared / second;
+        }
 
-		public static Volume operator * (Area first, Length second) {
-			return first.kmSquared * second.To(Length.KILOMETER);
-		}
+        /////////////////////////////////////////////////////////////////////////////
+        // MUTATORS
+        /////////////////////////////////////////////////////////////////////////////
+        public static Length operator /(Area area, Length length) {
+            return area._kmSquared / length.To(Length.Kilometer);
+        }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// TO STRING
-		/////////////////////////////////////////////////////////////////////////////
-		override
-		public string ToString () {
-			return ToStringSquareKilometers();
-		}
+        public static Volume operator *(Area area, Length length) {
+            return area._kmSquared * length.To(Length.Kilometer);
+        }
 
-		public string ToStringSquareKilometers () {
-			return string.Format("{0:F2}{1}", To(SQUARE_KILOMETER), UNIT);
-		}
-	}
+        /////////////////////////////////////////////////////////////////////////////
+        // TO STRING
+        /////////////////////////////////////////////////////////////////////////////
+        public override string ToString() {
+            return ToStringSquareKilometers();
+        }
+
+        public string ToStringSquareKilometers() {
+            return $"{To(SquareKilometer):F2}{Unit}";
+        }
+    }
 }

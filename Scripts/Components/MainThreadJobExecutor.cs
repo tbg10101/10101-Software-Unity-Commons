@@ -11,19 +11,19 @@ namespace Software10101.Components {
     public class MainThreadJobExecutor : MonoBehaviour {
         private static MainThreadJobExecutor _instance;
 
-        private static readonly ConcurrentQueue<Action> _crossSceneActionsQueue = new ConcurrentQueue<Action>();
+        private static readonly ConcurrentQueue<Action> CrossSceneActionsQueue = new ConcurrentQueue<Action>();
         private readonly ConcurrentQueue<Action> _thisSceneActionsQueue = new ConcurrentQueue<Action>();
 
 #if UNITY_EDITOR
         public long LastExecutionDurationMs;
 
-        private static ulong CrossSceneActionsExecutedBack;
+        private static ulong _crossSceneActionsExecutedBack;
         [Header("Execution Counters")]
         [SerializeField]
-        private ulong CrossSceneActionsExecuted;
+        private ulong _crossSceneActionsExecuted;
 
         [SerializeField]
-        private ulong ThisSceneActionsExecuted;
+        private ulong _thisSceneActionsExecuted;
 
         private readonly Stopwatch _executionStopwatch = new Stopwatch();
 #endif
@@ -46,7 +46,7 @@ namespace Software10101.Components {
                         action.Invoke();
 
 #if UNITY_EDITOR
-                        ThisSceneActionsExecuted++;
+                        _thisSceneActionsExecuted++;
 #endif
                     } catch (Exception e) {
                         Debug.LogException(e);
@@ -58,15 +58,15 @@ namespace Software10101.Components {
                 }
             }
 
-            if (!_crossSceneActionsQueue.IsEmpty) {
-                queueSnapshot = _crossSceneActionsQueue.ToArray();
+            if (!CrossSceneActionsQueue.IsEmpty) {
+                queueSnapshot = CrossSceneActionsQueue.ToArray();
 
                 foreach (Action action in queueSnapshot) {
                     try {
                         action.Invoke();
 
 #if UNITY_EDITOR
-                        CrossSceneActionsExecutedBack++;
+                        _crossSceneActionsExecutedBack++;
 #endif
                     } catch (Exception e) {
                         Debug.LogException(e);
@@ -74,12 +74,12 @@ namespace Software10101.Components {
                 }
 
                 for (var i = 0; i < queueSnapshot.Length; i++) {
-                    _crossSceneActionsQueue.TryDequeue(out _);
+                    CrossSceneActionsQueue.TryDequeue(out _);
                 }
             }
 
 #if UNITY_EDITOR
-            CrossSceneActionsExecuted = CrossSceneActionsExecutedBack;
+            _crossSceneActionsExecuted = _crossSceneActionsExecutedBack;
 
             _executionStopwatch.Stop();
 
@@ -92,7 +92,7 @@ namespace Software10101.Components {
                 return;
             }
 
-            _crossSceneActionsQueue.Enqueue(action);
+            CrossSceneActionsQueue.Enqueue(action);
         }
 
         public static void ExecuteOnMainThread(Action action) {
