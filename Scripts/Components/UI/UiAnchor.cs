@@ -7,10 +7,12 @@ namespace Software10101.Components.UI {
         public Vector3 WorldOffset;
         public Vector2 UiOffset;
 
-        private Camera _camera;
+        public Camera Camera;
 
         private void Awake() {
-            _camera = Camera.main;
+            if (Camera == null) {
+                Camera = Camera.main;
+            }
         }
 
         private void LateUpdate() {
@@ -25,12 +27,13 @@ namespace Software10101.Components.UI {
             if (Canvas.renderMode != RenderMode.ScreenSpaceOverlay) {
                 Vector2 canvasSize = ((RectTransform) Canvas.transform).sizeDelta;
                 Vector2 canvasOffset = canvasSize / 2.0f;
-                Vector2 viewportPoint = Canvas.worldCamera.WorldToViewportPoint(Anchor.position + WorldOffset);
+                Vector2 viewportPoint = Camera.WorldToViewportPoint(Anchor.position + WorldOffset);
                 Vector2 canvasPoint = Vector2.Scale(viewportPoint, canvasSize) + UiOffset - canvasOffset;
 
                 transform.localPosition = canvasPoint;
             } else {
-                transform.position = RectTransformUtility.WorldToScreenPoint(_camera, Anchor.position + WorldOffset) + UiOffset;
+                transform.position =
+                    RectTransformUtility.WorldToScreenPoint(Camera, Anchor.position + WorldOffset) + UiOffset;
             }
         }
     }
