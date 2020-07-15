@@ -24,17 +24,12 @@ namespace Software10101.Components.UI {
                 return;
             }
 
-            if (Canvas.renderMode != RenderMode.ScreenSpaceOverlay) {
-                Vector2 canvasSize = ((RectTransform) Canvas.transform).sizeDelta;
-                Vector2 canvasOffset = canvasSize / 2.0f;
-                Vector2 viewportPoint = Camera.WorldToViewportPoint(Anchor.position + WorldOffset);
-                Vector2 canvasPoint = Vector2.Scale(viewportPoint, canvasSize) + UiOffset - canvasOffset;
+            Vector2 canvasSize = ((RectTransform) Canvas.transform).sizeDelta;
+            Vector2 canvasOffset = canvasSize / 2.0f;
+            Vector2 viewportPoint = Camera.WorldToViewportPoint(Anchor.position + WorldOffset);
+            Vector2 canvasPoint = Vector2.Scale(viewportPoint, canvasSize) + UiOffset - canvasOffset;
 
-                transform.localPosition = canvasPoint;
-            } else {
-                transform.position =
-                    RectTransformUtility.WorldToScreenPoint(Camera, Anchor.position + WorldOffset) + UiOffset;
-            }
+            transform.localPosition = canvasPoint;
         }
     }
 }
