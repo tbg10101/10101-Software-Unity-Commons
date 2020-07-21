@@ -6,7 +6,7 @@ namespace Software10101.Components.UI {
 
         protected Canvas Canvas {
             get {
-                if (!_canvas) {
+                if (this && !_canvas) {
                     Transform t = transform;
 
                     while (!t.TryGetComponent(out _canvas)) {
