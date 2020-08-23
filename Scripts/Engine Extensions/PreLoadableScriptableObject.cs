@@ -49,6 +49,14 @@ namespace Software10101.EngineExtensions {
 
             PlayerSettings.SetPreloadedAssets(preloadedAssets.ToArray());
         }
+
+        [InitializeOnLoadMethod]
+        private static void LoadInEditor() {
+            var preloadedAssets = PlayerSettings.GetPreloadedAssets();
+            foreach (Object preloadedAsset in preloadedAssets) {
+                string _ = preloadedAsset.name;
+            }
+        }
 #endif
     }
 }
