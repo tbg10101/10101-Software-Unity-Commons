@@ -54,7 +54,9 @@ namespace Software10101.EngineExtensions {
         private static void LoadInEditor() {
             var preloadedAssets = PlayerSettings.GetPreloadedAssets();
             foreach (Object preloadedAsset in preloadedAssets) {
-                string _ = preloadedAsset.name;
+                if (preloadedAsset) {
+                    string _ = preloadedAsset.name;
+                }
             }
         }
 #endif
