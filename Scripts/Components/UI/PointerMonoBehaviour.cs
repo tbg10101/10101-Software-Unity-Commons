@@ -15,6 +15,12 @@ namespace Software10101.Components.UI {
         }
 
         public void OnPointerExit(PointerEventData eventData) {
+#if UNITY_2021_3_OR_NEWER
+            if (!eventData.fullyExited) {
+                return;
+            }
+#endif
+
             _onPointerExit?.Invoke();
         }
     }
