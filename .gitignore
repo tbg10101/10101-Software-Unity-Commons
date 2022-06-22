@@ -1,0 +1,30 @@
+# =============== #
+# Unity generated #
+# =============== #
+/Examples~/*/Library
+/Examples~/*/Logs
+/Examples~/*/obj
+/Examples~/*/Temp
+/Examples~/*/UnityGenerated
+/Examples~/*/UserSettings
+
+*.sln
+*.csproj
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ========================= #
+# JetBrains Rider generated #
+# ========================= #
+.idea

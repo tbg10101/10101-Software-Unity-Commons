@@ -1,12 +1,9 @@
 {
   "name": "com.10101software.commons",
-  "version": "2019.0",
+  "version": "1.0.0",
   "displayName": "10101 Software Commons",
   "description": "A collection of helpful classes and functions by 10101 Software.",
-  "unity": "2019.3",
-  "unityRelease": "0b8",
-  "dependencies": {
-  },
+  "unity": "2019.4",
   "keywords": [
     "10101",
     "utility",
@@ -16,5 +13,6 @@
     "name": "10101 Software",
     "email": "10101software@gmail.com",
     "url": "https://www.10101software.com/"
-  }
+  },
+  "type": "library"
 }

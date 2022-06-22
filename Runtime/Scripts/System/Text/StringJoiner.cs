@@ -2,7 +2,7 @@
     /// <summary>
     /// <see cref="StringJoiner"/> is used to construct a string separated by a delimiter and optionally starting with a supplied prefix and ending with a supplied suffix.
     ///
-    /// Prior to adding something to the <see cref="StringJoiner"/>, its sj.ToString () method will, by default, return prefix + suffix.However, if the SetEmptyValue() method is called, the emptyValue supplied will be returned instead. This can be used, for example, when creating a string using set notation to indicate an empty set, i.e. "{}", where the prefix is "{", the suffix is "}" and nothing has been added to the <see cref="StringJoiner"/>.
+    /// Prior to adding something to the <see cref="StringJoiner"/>, its ToString() method will, by default, return prefix + suffix. However, if the SetEmptyValue() method is called, the emptyValue supplied will be returned instead. This can be used, for example, when creating a string using set notation to indicate an empty set, i.e. "{}", where the prefix is "{", the suffix is "}" and nothing has been added to the <see cref="StringJoiner"/>.
     /// </summary>
     public sealed class StringJoiner {
         private readonly string _delimiter;
@@ -19,11 +19,7 @@
         /// </summary>
         /// <param name="delimiter">The <see cref="string"/> to be used between each element added to the <see cref="StringJoiner"/> value.</param>
         public StringJoiner (string delimiter) {
-            if (delimiter == null) {
-                throw new ArgumentNullException("delimiter", "Delimiter must not be null.");
-            }
-
-            _delimiter = delimiter;
+            _delimiter = delimiter ?? throw new ArgumentNullException(nameof(delimiter), "Delimiter must not be null.");
             _prefix = _suffix = "";
         }
 
@@ -34,21 +30,9 @@
         /// <param name="prefix">The <see cref="string"/> to be used at the beginning.</param>
         /// <param name="suffix">The <see cref="string"/> to be used at the end.</param>
         public StringJoiner (string delimiter, string prefix, string suffix) {
-            if (delimiter == null) {
-                throw new ArgumentNullException("delimiter", "Delimiter must not be null.");
-            }
-
-            if (prefix == null) {
-                throw new ArgumentNullException("prefix", "Prefix must not be null.");
-            }
-
-            if (suffix == null) {
-                throw new ArgumentNullException("suffix", "Suffix must not be null.");
-            }
-
-            _delimiter = delimiter;
-            _prefix = prefix;
-            _suffix = suffix;
+            _delimiter = delimiter ?? throw new ArgumentNullException(nameof(delimiter), "Delimiter must not be null.");
+            _prefix = prefix ?? throw new ArgumentNullException(nameof(prefix), "Prefix must not be null.");
+            _suffix = suffix ?? throw new ArgumentNullException(nameof(suffix), "Suffix must not be null.");
 
             _emptyValue = prefix + suffix;
         }
