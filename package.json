@@ -1,9 +1,16 @@
 {
   "name": "com.10101software.commons",
-  "version": "1.0.0",
   "displayName": "10101 Software Commons",
   "description": "A collection of helpful classes and functions by 10101 Software.",
+  "version": "1.0.1",
   "unity": "2019.4",
+  "dependencies": {
+    "com.unity.ugui": "1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tbg10101/10101-Software-Unity-Commons.git"
+  },
   "keywords": [
     "10101",
     "utility",

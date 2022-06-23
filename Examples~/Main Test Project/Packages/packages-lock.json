@@ -4,7 +4,9 @@
       "version": "file:../../..",
       "depth": 0,
       "source": "local",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      }
     },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
@@ -51,7 +53,7 @@
     },
     "com.unity.ugui": {
       "version": "1.0.0",
-      "depth": 0,
+      "depth": 1,
       "source": "builtin",
       "dependencies": {
         "com.unity.modules.ui": "1.0.0",
